@@ -49,6 +49,7 @@
      <Compile Include="Assets\Editor\CameraPointEditor.cs" />
      <Compile Include="Assets\Editor\CameraQuadEditor.cs" />
      <Compile Include="Assets\Editor\DoorEditorScript.cs" />
+     <Compile Include="Assets\Editor\OodObjectMenu.cs" />
      <None Include="Assets\materials\shaders\Toony-Basic.shader" />
      <None Include="Assets\materials\shaders\AlphaWrap.shader" />
      <None Include="Assets\materials\shaders\Water.shader" />

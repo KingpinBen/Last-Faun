@@ -62,7 +62,6 @@
      <Compile Include="Assets\scripts\characters\player\PlayerJumpScript.cs" />
      <Compile Include="Assets\scripts\characters\player\PlayerScript.cs" />
      <Compile Include="Assets\scripts\extras\CavePainting.cs" />
-     <Compile Include="Assets\scripts\extras\SwipeEffectScript.cs" />
      <Compile Include="Assets\scripts\extras\cursor\CursorManager.cs" />
      <Compile Include="Assets\scripts\objects\Block\BlockPushScript.cs" />
      <Compile Include="Assets\scripts\objects\Block\BlockScript.cs" />
@@ -78,6 +77,7 @@
      <Compile Include="Assets\scripts\objects\Climbable\MatchTargetScript.cs" />
      <Compile Include="Assets\scripts\objects\Dynamic\DoorScript.cs" />
      <Compile Include="Assets\scripts\objects\Dynamic\GlobalLightScript.cs" />
+     <Compile Include="Assets\scripts\objects\Dynamic\OscillateMovementScript.cs" />
      <Compile Include="Assets\scripts\objects\Dynamic\WaterScript.cs" />
      <Compile Include="Assets\scripts\objects\EditorObjectGizmo.cs" />
      <Compile Include="Assets\scripts\objects\GestureObject.cs" />
@@ -98,7 +98,6 @@
      <Compile Include="Assets\scripts\objects\Triggers\OutOfBoundsZone.cs" />
      <Compile Include="Assets\scripts\objects\Triggers\SlowZoneScript.cs" />
      <Compile Include="Assets\scripts\objects\Triggers\TriggerObjectScript.cs" />
-     <Compile Include="Assets\scripts\system\OodObjectMenu.cs" />
      <Compile Include="Assets\scripts\system\Point.cs" />
      <Compile Include="Assets\scripts\system\SaveManager.cs" />
      <Compile Include="Assets\scripts\system\menus\InGamePause.cs" />
