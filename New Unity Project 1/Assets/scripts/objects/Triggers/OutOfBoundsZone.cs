@@ -107,7 +107,7 @@ public class OutOfBoundsZone : MonoBehaviour {
 	    yield return new WaitForSeconds(.5f);
         _activeState = FadingState.FadingOut;
         _startTime = Time.time;
-        //_player.transform.position = targetRespawnPoint.position;
+        _player.transform.position = targetRespawnPoint.position;
 
 	    yield return new WaitForSeconds(_fadeDuration);
 	    _guiColor.a = 0;
