@@ -11,6 +11,11 @@ public class DynamicObjectScript : MonoBehaviour
     private readonly Dictionary<string, Transform> _connectedObjects = new Dictionary<string, Transform>();
     private readonly Dictionary<string, Transform> _connectedObjectsParents = new Dictionary<string, Transform>();
 
+    private void Start()
+    {
+        collider.isTrigger = true;
+    }
+
     private void OnTriggerEnter(Collider body)
     {
         if (body.isTrigger) return;
