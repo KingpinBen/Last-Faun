@@ -46,6 +46,7 @@
   <ItemGroup>
      <Compile Include="Assets\scripts\ai\AICharacter.cs" />
      <Compile Include="Assets\scripts\ai\AINode.cs" />
+     <Compile Include="Assets\scripts\ai\PlayerAINode.cs" />
      <Compile Include="Assets\scripts\camera\CameraManagerScript.cs" />
      <Compile Include="Assets\scripts\camera\CameraNodeScript.cs" />
      <Compile Include="Assets\scripts\camera\CameraScript.cs" />
@@ -95,6 +96,7 @@
      <Compile Include="Assets\scripts\objects\Triggers\ChangeLevelScript.cs" />
      <Compile Include="Assets\scripts\objects\Triggers\CompanionClimbScript.cs" />
      <Compile Include="Assets\scripts\objects\Triggers\JumpTargetScript.cs" />
+     <Compile Include="Assets\scripts\objects\Triggers\OutOfBoundsZone.cs" />
      <Compile Include="Assets\scripts\objects\Triggers\SlowZoneScript.cs" />
      <Compile Include="Assets\scripts\objects\Triggers\TriggerObjectScript.cs" />
      <Compile Include="Assets\scripts\system\OodObjectMenu.cs" />
