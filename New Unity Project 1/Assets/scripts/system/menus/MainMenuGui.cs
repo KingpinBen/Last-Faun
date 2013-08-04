@@ -9,7 +9,6 @@ public class MainMenuGui : MonoBehaviour
     private Texture2D _pixel;
     private bool _transitioning;
     private int _levelToLoad = -1;
-    private float _startTime;
     private Matrix4x4 _guiMatrix;
     private Rect _guiRect = new Rect(0,0,200, 200);
     public Color _tintColor = Color.black * 0f;
@@ -72,7 +71,6 @@ public class MainMenuGui : MonoBehaviour
     void LoadLevel(int levelIndex)
     {
         _transitioning = true;
-        _startTime = Time.time;
         _levelToLoad = levelIndex;
 
         StartCoroutine(TransitionOutToLevel());
@@ -91,8 +89,6 @@ public class MainMenuGui : MonoBehaviour
 
     IEnumerator TransitionOutToLevel()
     {
-        
-
         yield return new WaitForSeconds(2);
 
         Application.LoadLevel(_levelToLoad);

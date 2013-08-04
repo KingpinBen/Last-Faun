@@ -11,10 +11,14 @@ public class InGamePause : MonoBehaviour
     private Rect _guiRect = new Rect(0, 0, 250, 200);
     private bool _paused;
 
+    private void Awake()
+    {
+        instance = this;
+    }
+
     private void Start()
     {
         UpdateGui();
-        instance = this;
     }
 
     private void Update()
