@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+	<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+	<ProductVersion>10.0.20506</ProductVersion>
+	<SchemaVersion>2.0</SchemaVersion>
+	<ProjectGuid>{FC9411EB-1B12-4154-0219-EEA7CBD09863}</ProjectGuid>
+	<OutputType>Library</OutputType>
+	<AppDesignerFolder>Properties</AppDesignerFolder>
+	<RootNamespace></RootNamespace>
+	<AssemblyName>Assembly-CSharp</AssemblyName>
+	<TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+	<FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+	<DebugSymbols>true</DebugSymbols>
+	<DebugType>full</DebugType>
+	<Optimize>false</Optimize>
+	<OutputPath>Temp\bin\Debug\</OutputPath>
+	<DefineConstants>DEBUG;TRACE;UNITY_STANDALONE;ENABLE_MICROPHONE;ENABLE_IMAGEEFFECTS;ENABLE_WEBCAM;ENABLE_AUDIO_FMOD;ENABLE_NETWORK;ENABLE_MONO;ENABLE_PHYSICS;ENABLE_TERRAIN;ENABLE_CACHING;ENABLE_SUBSTANCE;ENABLE_GENERICS;ENABLE_CLOTH;ENABLE_MOVIES;ENABLE_AUDIO;ENABLE_WWW;ENABLE_SHADOWS;ENABLE_DUCK_TYPING;UNITY_4_0_0;UNITY_4_0;UNITY_STANDALONE_WIN;ENABLE_PROFILER;UNITY_EDITOR;UNITY_TEAM_LICENSE</DefineConstants>
+	<ErrorReport>prompt</ErrorReport>
+	<WarningLevel>4</WarningLevel>
+	<NoWarn>0169</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+	<DebugType>pdbonly</DebugType>
+	<Optimize>true</Optimize>
+	<OutputPath>Temp\bin\Release\</OutputPath>
+	<DefineConstants>TRACE</DefineConstants>
+	<ErrorReport>prompt</ErrorReport>
+	<WarningLevel>4</WarningLevel>
+	<NoWarn>0169</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+	<Reference Include="System" />
+    <Reference Include="System.XML" />
+	<Reference Include="System.Core" />
+	<Reference Include="UnityEngine">
+	  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+	</Reference>
+	<Reference Include="UnityEditor">
+	  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+	</Reference>
+  </ItemGroup>
+  <ItemGroup>
+     <Compile Include="Assets\scripts\ai\AICharacter.cs" />
+     <Compile Include="Assets\scripts\ai\AINode.cs" />
+     <Compile Include="Assets\scripts\camera\CameraManagerScript.cs" />
+     <Compile Include="Assets\scripts\camera\CameraNodeScript.cs" />
+     <Compile Include="Assets\scripts\camera\CameraScript.cs" />
+     <Compile Include="Assets\scripts\camera\controllers\CameraBaseController.cs" />
+     <Compile Include="Assets\scripts\camera\controllers\CameraLineController.cs" />
+     <Compile Include="Assets\scripts\camera\controllers\CameraPointController.cs" />
+     <Compile Include="Assets\scripts\camera\controllers\CameraQuadraticController.cs" />
+     <Compile Include="Assets\scripts\characters\Character.cs" />
+     <Compile Include="Assets\scripts\characters\companion\CompanionScript.cs" />
+     <Compile Include="Assets\scripts\characters\companion\EmoticonDisplayScript.cs" />
+     <Compile Include="Assets\scripts\characters\companion\EmoticonScript.cs" />
+     <Compile Include="Assets\scripts\characters\player\GradientBasedGestureScript.cs" />
+     <Compile Include="Assets\scripts\characters\player\PlayerJumpScript.cs" />
+     <Compile Include="Assets\scripts\characters\player\PlayerScript.cs" />
+     <Compile Include="Assets\scripts\extras\CavePainting.cs" />
+     <Compile Include="Assets\scripts\extras\SwipeEffectScript.cs" />
+     <Compile Include="Assets\scripts\extras\cursor\CursorManager.cs" />
+     <Compile Include="Assets\scripts\objects\Block\BlockPushScript.cs" />
+     <Compile Include="Assets\scripts\objects\Block\BlockScript.cs" />
+     <Compile Include="Assets\scripts\objects\Block\BlockTargetBlocker.cs" />
+     <Compile Include="Assets\scripts\objects\Block\BlockTrackTarget.cs" />
+     <Compile Include="Assets\scripts\objects\Boulder Pick Up\BoulderScript.cs" />
+     <Compile Include="Assets\scripts\objects\Bridge\BridgeScript.cs" />
+     <Compile Include="Assets\scripts\objects\Button\ButtonScript.cs" />
+     <Compile Include="Assets\scripts\objects\Button\LeverSwitchScript.cs" />
+     <Compile Include="Assets\scripts\objects\Button\PressurePadScript.cs" />
+     <Compile Include="Assets\scripts\objects\ButtonKey\ButtonKeyScript.cs" />
+     <Compile Include="Assets\scripts\objects\Cave Passage\CavePassageScript.cs" />
+     <Compile Include="Assets\scripts\objects\Climbable\BoostPlatformScript.cs" />
+     <Compile Include="Assets\scripts\objects\Climbable\MatchTargetScript.cs" />
+     <Compile Include="Assets\scripts\objects\Dynamic\DoorScript.cs" />
+     <Compile Include="Assets\scripts\objects\Dynamic\GlobalLightScript.cs" />
+     <Compile Include="Assets\scripts\objects\Dynamic\WaterScript.cs" />
+     <Compile Include="Assets\scripts\objects\EditorObjectGizmo.cs" />
+     <Compile Include="Assets\scripts\objects\GestureObject.cs" />
+     <Compile Include="Assets\scripts\objects\InteractiveObject.cs" />
+     <Compile Include="Assets\scripts\objects\Logic\LogicBehaviourScript.cs" />
+     <Compile Include="Assets\scripts\objects\Logic\ObjectState.cs" />
+     <Compile Include="Assets\scripts\objects\Logic\TimerLogicBehaviourScript.cs" />
+     <Compile Include="Assets\scripts\objects\Logic\ToggleStateObject.cs" />
+     <Compile Include="Assets\scripts\objects\Platforms\DynamicObjectScript.cs" />
+     <Compile Include="Assets\scripts\objects\Platforms\MovingPlatformScript.cs" />
+     <Compile Include="Assets\scripts\objects\RedHerringObject.cs" />
+     <Compile Include="Assets\scripts\objects\RotatingPlatform\PivotScript.cs" />
+     <Compile Include="Assets\scripts\objects\RotatingPlatform\PlatformRotateScript.cs" />
+     <Compile Include="Assets\scripts\objects\Triggers\BoundaryWall.cs" />
+     <Compile Include="Assets\scripts\objects\Triggers\ChangeLevelScript.cs" />
+     <Compile Include="Assets\scripts\objects\Triggers\CompanionClimbScript.cs" />
+     <Compile Include="Assets\scripts\objects\Triggers\JumpTargetScript.cs" />
+     <Compile Include="Assets\scripts\objects\Triggers\SlowZoneScript.cs" />
+     <Compile Include="Assets\scripts\objects\Triggers\TriggerObjectScript.cs" />
+     <Compile Include="Assets\scripts\system\OodObjectMenu.cs" />
+     <Compile Include="Assets\scripts\system\Point.cs" />
+     <Compile Include="Assets\scripts\system\SaveManager.cs" />
+     <Compile Include="Assets\scripts\system\menus\InGamePause.cs" />
+     <Compile Include="Assets\scripts\system\menus\MainMenuGui.cs" />
+     <Compile Include="Assets\scripts\system\menus\MenuTextBehaviour.cs" />
+     <None Include="Assets\materials\shaders\Toony-Basic.shader" />
+     <None Include="Assets\materials\shaders\AlphaWrap.shader" />
+     <None Include="Assets\materials\shaders\Water.shader" />
+     <None Include="Assets\materials\shaders\Projector Multiply.shader" />
+     <None Include="Assets\materials\shaders\Toony-BasicOutline.shader" />
+     <None Include="Assets\materials\shaders\Shadow Projector.shader" />
+     <None Include="Assets\materials\shaders\Decal.shader" />
+     <None Include="Assets\materials\shaders\Toony-LightedOutline.shader" />
+     <None Include="Assets\materials\shaders\Toony-Lighted.shader" />
+     <None Include="Assets\materials\shaders\WaterRipple.shader" />
+     <None Include="Assets\materials\shaders\Projector Light.shader" />
+     <None Include="Assets\materials\shaders\UnlitFader.shader" />
+     <None Include="Assets\materials\shaders\Toony-Terrain.shader" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+	   Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  
+</Project>

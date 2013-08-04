@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+	<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+	<ProductVersion>10.0.20506</ProductVersion>
+	<SchemaVersion>2.0</SchemaVersion>
+	<ProjectGuid>{0F19A61F-9652-5AA3-2151-7E0A470E2B1F}</ProjectGuid>
+	<OutputType>Library</OutputType>
+	<AppDesignerFolder>Properties</AppDesignerFolder>
+	<RootNamespace></RootNamespace>
+	<AssemblyName>Assembly-CSharp-Editor-firstpass</AssemblyName>
+	<TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+	<FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+	<DebugSymbols>true</DebugSymbols>
+	<DebugType>full</DebugType>
+	<Optimize>false</Optimize>
+	<OutputPath>Temp\bin\Debug\</OutputPath>
+	<DefineConstants>DEBUG;TRACE;UNITY_STANDALONE;ENABLE_MICROPHONE;ENABLE_IMAGEEFFECTS;ENABLE_WEBCAM;ENABLE_AUDIO_FMOD;ENABLE_NETWORK;ENABLE_MONO;ENABLE_PHYSICS;ENABLE_TERRAIN;ENABLE_CACHING;ENABLE_SUBSTANCE;ENABLE_GENERICS;ENABLE_CLOTH;ENABLE_MOVIES;ENABLE_AUDIO;ENABLE_WWW;ENABLE_SHADOWS;ENABLE_DUCK_TYPING;UNITY_4_0_0;UNITY_4_0;UNITY_STANDALONE_WIN;ENABLE_PROFILER;UNITY_EDITOR;UNITY_TEAM_LICENSE</DefineConstants>
+	<ErrorReport>prompt</ErrorReport>
+	<WarningLevel>4</WarningLevel>
+	<NoWarn>0169</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+	<DebugType>pdbonly</DebugType>
+	<Optimize>true</Optimize>
+	<OutputPath>Temp\bin\Release\</OutputPath>
+	<DefineConstants>TRACE</DefineConstants>
+	<ErrorReport>prompt</ErrorReport>
+	<WarningLevel>4</WarningLevel>
+	<NoWarn>0169</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+	<Reference Include="System" />
+    <Reference Include="System.XML" />
+	<Reference Include="System.Core" />
+	<Reference Include="UnityEngine">
+	  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+	</Reference>
+	<Reference Include="UnityEditor">
+	  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+	</Reference>
+  </ItemGroup>
+  <ItemGroup>
+     <Compile Include="Assets\Plugins\Editor\Decal System\Scripts\Decals\DS_DecalProjectorEditor.cs" />
+     <Compile Include="Assets\Plugins\Editor\Decal System\Scripts\Decals\DS_DecalProjectorGroupEditor.cs" />
+     <Compile Include="Assets\Plugins\Editor\Decal System\Scripts\Decals\DS_DecalsEditor.cs" />
+     <Compile Include="Assets\Plugins\Editor\Decal System\Scripts\SkinnedDecals\DS_SkinnedDecalProjectorEditor.cs" />
+     <Compile Include="Assets\Plugins\Editor\Decal System\Scripts\SkinnedDecals\DS_SkinnedDecalProjectorGroupEditor.cs" />
+     <Compile Include="Assets\Plugins\Editor\Decal System\Scripts\SkinnedDecals\DS_SkinnedDecalsEditor.cs" />
+     <Compile Include="Assets\Plugins\Editor\Decal System\Scripts\Support\DecalsGizmos.cs" />
+     <Compile Include="Assets\Plugins\Editor\Decal System\Scripts\Support\DecalsMenu.cs" />
+     <Compile Include="Assets\Plugins\Editor\Decal System\Scripts\Window\DS_UVRectangleEditorWindow.cs" />
+     <None Include="Assets\Prefabs\Standard Assets\Projectors\Guidelines.txt" />
+     <None Include="Assets\Plugins\Decal System\Shader\Decal-Alpha-Diffuse.shader" />
+     <None Include="Assets\Prefabs\Standard Assets\Toon Shading\Sources\Shaders\Toony-Basic.shader" />
+     <None Include="Assets\Prefabs\Standard Assets\Projectors\Sources\Shaders\Projector Multiply.shader" />
+     <None Include="Assets\Plugins\Decal System\Shader\Decal-Alpha-VertexLit.shader" />
+     <None Include="Assets\Assets\Shaders\AlphaWrap.shader" />
+     <None Include="Assets\Plugins\Decal System\Shader\Mobile\Mobile-Decal-AlphaTest-Bumped.shader" />
+     <None Include="Assets\Plugins\Decal System\Shader\Decal-AlphaTest-VertexLit.shader" />
+     <None Include="Assets\Plugins\Decal System\Shader\Decal-AlphaTest-Diffuse.shader" />
+     <None Include="Assets\Plugins\Decal System\Shader\Mobile\Mobile-Decal-Alpha-Diffuse.shader" />
+     <None Include="Assets\Plugins\Decal System\Shader\Decal-Alpha-Diffuse-Colored.shader" />
+     <None Include="Assets\Prefabs\Standard Assets\Toon Shading\Sources\Shaders\Toony-BasicOutline.shader" />
+     <None Include="Assets\Assets\Shaders\ToonTransparencyShader.shader" />
+     <None Include="Assets\Prefabs\Standard Assets\Projectors\Sources\Shaders\Projector Light.shader" />
+     <None Include="Assets\Plugins\Decal System\Shader\Decal-Alpha-TargetBumped.shader" />
+     <None Include="Assets\Plugins\Decal System\Shader\Decal-AlphaTest-Bumped.shader" />
+     <None Include="Assets\Assets\Shaders\Decal.shader" />
+     <None Include="Assets\Prefabs\Standard Assets\Toon Shading\Sources\Shaders\Toony-LightedOutline.shader" />
+     <None Include="Assets\Prefabs\Standard Assets\Toon Shading\Sources\Shaders\Toony-Lighted.shader" />
+     <None Include="Assets\Plugins\Decal System\Shader\Mobile\Mobile-Decal-Alpha-Bumped.shader" />
+     <None Include="Assets\Plugins\Decal System\DecalSystem.Runtime.xml" />
+     <None Include="Assets\Assets\Shaders\UnlitFader.shader" />
+     <None Include="Assets\Plugins\Decal System\Shader\Mobile\Mobile-Decal-AlphaTest-TargetBumped.shader" />
+     <None Include="Assets\Plugins\Decal System\Shader\Decal-Alpha-Bumped.shader" />
+     <None Include="Assets\Plugins\Decal System\Shader\Decal-AlphaTest-TargetBumped.shader" />
+     <None Include="Assets\Assets\Shaders\Toony-Terrain.shader" />
+     <None Include="Assets\Plugins\Decal System\Shader\Mobile\Mobile-Decal-AlphaTest-Diffuse.shader" />
+     <None Include="Assets\Plugins\Readme.txt" />
+     <None Include="Assets\Plugins\Decal System\Shader\Mobile\Mobile-Decal-Alpha-TargetBumped.shader" />
+ <Reference Include="UnityEditor.Graphs">
+ <HintPath>C:\Program Files (x86)\Unity\Editor\Data\Managed\UnityEditor.Graphs.dll</HintPath>
+ </Reference>
+ <Reference Include="DecalSystem.Editor">
+ <HintPath>Assets\Plugins\Editor\Decal System\DecalSystem.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="DecalSystem.Runtime">
+ <HintPath>Assets\Plugins\Decal System\DecalSystem.Runtime.dll</HintPath>
+ </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
+      <Project>{8A372BAF-BA95-0346-D5FC-D82F8865A500}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+	   Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  
+</Project>
