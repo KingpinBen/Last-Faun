@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CompanionClimbScript : MonoBehaviour
+public class CompanionClimbScript : InteractiveObject
 {
     public Transform endPiece;
 
@@ -78,5 +78,21 @@ public class CompanionClimbScript : MonoBehaviour
     public OffMeshLink GetMeshLink()
     {
         return _meshLink;
+    }
+
+    public override void ActivateObject(object sender)
+    {
+        base.ActivateObject(sender);
+
+        _meshLink.activated = objectActive;
+        transform.parent.gameObject.SetActive(objectActive);
+    }
+
+    public override void DeactivateObject(object sender)
+    {
+        base.DeactivateObject(sender);
+
+        _meshLink.activated = objectActive;
+        transform.parent.gameObject.SetActive(objectActive);
     }
 }
