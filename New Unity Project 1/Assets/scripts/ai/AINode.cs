@@ -28,12 +28,16 @@ public class AINode : InteractiveObject
         if (agent)
             _aiCharacter = agent.GetComponent<AiCharacter>();
         else
-            Destroy(gameObject);    //  No AI? Dont need this  
+        {
+            gameObject.SetActive(false);    //  No faun exists, so turn this off
+            return;
+        }
+            
  
         if (objectActive) ActivateObject(null);
     }
 
-    protected virtual void Start()
+    protected override void Start()
     {
         if (nextObject)
         {
