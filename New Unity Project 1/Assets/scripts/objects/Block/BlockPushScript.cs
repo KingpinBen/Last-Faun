@@ -8,7 +8,6 @@ public class BlockPushScript : GestureObject
     private Vector3 _targetMovementPosition;
     private BlockScript _block;
     private BlockStatus _status;
-    private Transform _oldPlayerTransform;
 
     protected override void Start()
     {
@@ -152,7 +151,6 @@ public class BlockPushScript : GestureObject
         if (other.isTrigger || other.tag != "Player")
             return;
 
-        _oldPlayerTransform = other.transform.parent;
         other.transform.parent = transform;
     }
 
@@ -161,6 +159,6 @@ public class BlockPushScript : GestureObject
         if (other.isTrigger || other.tag != "Player")
             return;
 
-        other.transform.parent = _oldPlayerTransform;
+        other.transform.parent = null;
     }
 }
