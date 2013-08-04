@@ -24,6 +24,8 @@ public class CompanionClimbScript : InteractiveObject
     {
         _companionAgent = _companionScript.GetAgent();
         _companionBaseSpeed = _companionAgent.speed;
+
+        base.Start();
     }
 
     private void Update()
@@ -84,15 +86,15 @@ public class CompanionClimbScript : InteractiveObject
     {
         base.ActivateObject(sender);
 
-        _meshLink.activated = objectActive;
-        transform.parent.gameObject.SetActive(objectActive);
+        _meshLink.activated = true;
+        transform.parent.gameObject.SetActive(true);
     }
 
     public override void DeactivateObject(object sender)
     {
         base.DeactivateObject(sender);
 
-        _meshLink.activated = objectActive;
-        transform.parent.gameObject.SetActive(objectActive);
+        _meshLink.activated = false;
+        transform.parent.gameObject.SetActive(false);
     }
 }
