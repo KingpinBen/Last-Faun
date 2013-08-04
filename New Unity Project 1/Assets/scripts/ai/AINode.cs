@@ -13,14 +13,15 @@ public class AINode : InteractiveObject
     public NavMeshAgent agent;
 
     private float _elapsed;
-    private AiCharacter _aiCharacter;
+    protected AiCharacter _aiCharacter;
 
-    void Awake()
+    protected virtual void Awake()
     {
         if (agent == false)
         {
             var companion = GameObject.FindWithTag("Companion");
-            if (companion) agent = companion.GetComponent<NavMeshAgent>();
+            if (companion) 
+                agent = companion.GetComponent<NavMeshAgent>();
 
         }
 
@@ -32,7 +33,7 @@ public class AINode : InteractiveObject
         if (objectActive) ActivateObject(null);
     }
 
-    void Start()
+    protected virtual void Start()
     {
         if (nextObject)
         {
@@ -41,7 +42,7 @@ public class AINode : InteractiveObject
         }
     }
 
-    void Update()
+    protected virtual void Update()
     {
         if (objectActive)
             if (nextObject)
