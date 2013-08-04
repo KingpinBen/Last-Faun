@@ -69,7 +69,6 @@
      <Compile Include="Assets\scripts\objects\Block\BlockTargetBlocker.cs" />
      <Compile Include="Assets\scripts\objects\Block\BlockTrackTarget.cs" />
      <Compile Include="Assets\scripts\objects\Boulder Pick Up\BoulderScript.cs" />
-     <Compile Include="Assets\scripts\objects\Bridge\BridgeScript.cs" />
      <Compile Include="Assets\scripts\objects\Button\ButtonScript.cs" />
      <Compile Include="Assets\scripts\objects\Button\LeverSwitchScript.cs" />
      <Compile Include="Assets\scripts\objects\Button\PressurePadScript.cs" />

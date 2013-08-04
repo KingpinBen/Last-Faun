@@ -24,9 +24,14 @@ public class InteractiveObject : MonoBehaviour
 
     public bool objectActive;
 
+    protected virtual void Start()
+    {
+        if (!objectActive) 
+            DeactivateObject(null);
+    }
+
     public virtual void ActivateObject(object sender)
     {
-        if (objectActive) return;
         objectActive = true;
 
         if (_onActivateDelegate != null)
@@ -35,7 +40,6 @@ public class InteractiveObject : MonoBehaviour
 
     public virtual void DeactivateObject(object sender)
     {
-        if (!objectActive) return;
         objectActive = false;
 
         if (_onDeactivateDelegate != null)
