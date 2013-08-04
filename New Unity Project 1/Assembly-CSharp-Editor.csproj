@@ -53,6 +53,7 @@
      <None Include="Assets\materials\shaders\AlphaWrap.shader" />
      <None Include="Assets\materials\shaders\Water.shader" />
      <None Include="Assets\materials\shaders\Projector Multiply.shader" />
+     <None Include="Assets\materials\shaders\Toony-Lighted-NoCull.shader" />
      <None Include="Assets\materials\shaders\Toony-BasicOutline.shader" />
      <None Include="Assets\materials\shaders\Shadow Projector.shader" />
      <None Include="Assets\materials\shaders\Decal.shader" />
