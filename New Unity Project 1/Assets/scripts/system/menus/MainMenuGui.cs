@@ -45,7 +45,7 @@ public class MainMenuGui : MonoBehaviour
 
             GUILayout.BeginArea(_guiRect);
 
-            if (SaveManager.loadedContent)
+            if (SaveManager.loadFound)
             {
                 if (GUILayout.Button("Continue"))
                 {
