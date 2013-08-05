@@ -83,9 +83,9 @@ public class PlayerScript : Character
                         _animator.applyRootMotion = false;
                     }
                 }
-            }
 
-            return;
+                return;
+            }
         }
 
         UpdateSmoothedMovementDirection();
@@ -123,6 +123,8 @@ public class PlayerScript : Character
 
     private void UpdateSmoothedMovementDirection()
     {
+        if (!IsControllable) return;
+
         var h = Input.GetAxis("Horizontal");
         var v = Input.GetAxis("Vertical");
         var av = Mathf.Abs(v);
@@ -135,7 +137,6 @@ public class PlayerScript : Character
         {
             _cameraTransform = _camera.GetCameraTransform(true);
         }
-            
 
         var forward = _cameraTransform.TransformDirection(Vector3.forward);
         forward.y = 0;

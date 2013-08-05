@@ -4,13 +4,7 @@ using System.Collections;
 [RequireComponent(typeof(BoxCollider))]
 public class OutOfBoundsZone : MonoBehaviour {
 	
-    private enum FadingState
-    {
-        Hidden,
-        FadingIn,
-        Shown,
-        FadingOut
-    }
+    
 
 	public Transform targetRespawnPoint;
 	
@@ -20,7 +14,8 @@ public class OutOfBoundsZone : MonoBehaviour {
 	private float _startTime;
     private FadingState _activeState = FadingState.Hidden;
 	
-	private const float _fadeDuration = 1.0f;
+	private const float FADE_DURATION = 1.0f;
+    private const float TIME_DURING_BLANK_SCREEN = 1.0f;
 	
 	void Awake ()
 	{
@@ -74,10 +69,10 @@ public class OutOfBoundsZone : MonoBehaviour {
             case FadingState.Shown:
                 return;
             case FadingState.FadingIn:
-                _guiColor.a = Mathf.PingPong(Time.time - _startTime, _fadeDuration)/_fadeDuration;
+                _guiColor.a = Mathf.PingPong(Time.time - _startTime, FADE_DURATION) / FADE_DURATION;
                 break;
             case FadingState.FadingOut:
-                _guiColor.a = 1 - Mathf.PingPong(Time.time - _startTime, _fadeDuration)/_fadeDuration;
+                _guiColor.a = 1 - Mathf.PingPong(Time.time - _startTime, FADE_DURATION) / FADE_DURATION;
                 break;
         }
 	}
@@ -93,25 +88,35 @@ public class OutOfBoundsZone : MonoBehaviour {
 	
 	IEnumerator RespawnPlayer()
 	{
+	    _player.IsControllable = false;
         //  Start fading in
         _startTime = Time.time;
         _activeState = FadingState.FadingIn;
-		yield return new WaitForSeconds(_fadeDuration);
+        yield return new WaitForSeconds(FADE_DURATION);
 
         //  After _fadeDuration time, show solid black
 	    _guiColor.a = 1;
         _activeState = FadingState.Shown;
 	    yield return new WaitForEndOfFrame();
 
-        //  After a further .5 seconds of solid black, move the player and fade back in.
-	    yield return new WaitForSeconds(.5f);
+        //  Add a solid black screen to hide stuff.
+        yield return new WaitForSeconds(TIME_DURING_BLANK_SCREEN);
         _activeState = FadingState.FadingOut;
         _startTime = Time.time;
         _player.transform.position = targetRespawnPoint.position;
 
-	    yield return new WaitForSeconds(_fadeDuration);
+        yield return new WaitForSeconds(FADE_DURATION);
 	    _guiColor.a = 0;
         _activeState = FadingState.Hidden;
 
+	    _player.IsControllable = true;
 	}
+
+    private enum FadingState
+    {
+        Hidden,
+        FadingIn,
+        Shown,
+        FadingOut
+    }
 }

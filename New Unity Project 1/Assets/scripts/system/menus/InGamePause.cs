@@ -3,7 +3,16 @@ using System.Collections;
 
 public class InGamePause : MonoBehaviour
 {
-    public static InGamePause instance;
+    private static InGamePause _instance;
+    public static InGamePause instance
+    {
+        get { return _instance; }
+        private set
+        {
+            Debug.Log("Instance has changed to " + value.ToString());
+            _instance = value;
+        }
+    }
 
     public GUISkin guiSkin;
 
@@ -13,7 +22,7 @@ public class InGamePause : MonoBehaviour
 
     private void Awake()
     {
-        instance = this;
+        _instance = this;
     }
 
     private void Start()
@@ -23,9 +32,11 @@ public class InGamePause : MonoBehaviour
 
     private void Update()
     {
-        UpdateGui();
         if (Input.GetKeyDown(KeyCode.Escape))
             UpdateGameState();
+
+        if (_paused)
+            UpdateGui();
     }
 
     private void UpdateGameState()
