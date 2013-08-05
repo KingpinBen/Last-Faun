@@ -24,6 +24,15 @@ public class CursorManager : MonoBehaviour
     private Vector3 _mousePosition;
     private Rect _guiRect;
 
+    private void Awake()
+    {
+        if (!cursors)
+        {
+            Debug.Log("The cursor manager is missing its texture atlas.");
+            enabled = false;
+        }
+    }
+
     private void Start()
     {
         const float rowCount = 4.0f;    //  4 status states. Can change if more get added.

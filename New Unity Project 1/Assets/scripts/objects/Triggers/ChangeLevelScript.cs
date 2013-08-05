@@ -19,7 +19,6 @@ public class ChangeLevelScript : MonoBehaviour
     private void Awake()
     {
         
-
 		if (string.IsNullOrEmpty(nextLevelName))
 		{
             Debug.LogException(new Exception("No Level to change to. Disabling"));
@@ -27,13 +26,23 @@ public class ChangeLevelScript : MonoBehaviour
 		}
         else
 		{
-            //  Do it in the else so we don't have to load extra things.
-            _pixel = new Texture2D(1, 1);
-            _pixel.SetPixel(1, 1, Color.black);
-            _pixel.Apply();
+            if (nextLevelName == Application.loadedLevelName)
+            {
+                Debug.Log(
+                    name + ": The next level listed is the current level. This may be an error.");
 
-            //  Start the fade in.
-            StartCoroutine(FadeIn());
+                gameObject.SetActive(false);
+            } 
+            else
+            {
+                //  Do it in the else so we don't have to load extra things.
+                _pixel = new Texture2D(1, 1);
+                _pixel.SetPixel(1, 1, Color.black);
+                _pixel.Apply();
+
+                //  Start the fade in.
+                StartCoroutine(FadeIn());
+            }
 		}
     }
 
