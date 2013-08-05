@@ -35,6 +35,8 @@ public static class SaveManager
     {
         if (_loadedContent) return;
 
+        //  Check if the Save folder exists, otherwise we'll need to make one.
+        //  It'll throw null on SAVE_FILE_NAME path otherwise.
         if (!Directory.Exists("./Saves"))
         {
             Directory.CreateDirectory("./Saves");
@@ -74,6 +76,8 @@ public static class SaveManager
 
     public static void Save()
     {
+        //  Check if the Save folder exists, otherwise we'll need to make one.
+        //  It'll throw null on SAVE_FILE_NAME path otherwise.
         if (!Directory.Exists("./Saves"))
         {
             Directory.CreateDirectory("./Saves");
