@@ -11,7 +11,8 @@ Shader "Toon/Toony Terrain" {
 		_Ramp ("Toon Ramp", 2D) = "white" { }
 	}
 	
-	SubShader {
+	SubShader 
+	{
 		Tags
 		{
 				"SplatCount" = "4"
