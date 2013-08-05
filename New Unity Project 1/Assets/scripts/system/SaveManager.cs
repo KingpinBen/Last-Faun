@@ -86,7 +86,6 @@ public static class SaveManager
         //  Initialize the writer and make a temp file.
         var writer = new BinaryWriter(File.Create(SAVE_FILE_NAME + ".tmp"));
 
-        //  Save the actual game data
         writer.Write(_currentLevel);
         writer.Write(_currentCheckpointIndex);
 
