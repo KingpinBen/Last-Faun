@@ -22,7 +22,7 @@ public class PlayerJumpScript : MonoBehaviour
         _playerScript = transform.parent.GetComponent<PlayerScript>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (!_playerScript.IsIdle()) return;
 
@@ -33,7 +33,11 @@ public class PlayerJumpScript : MonoBehaviour
                 TargetBody = null;
         }
 
-        var grounded = Physics.Raycast(transform.position + (transform.forward + Vector3.up) * .25f, Vector3.down, 1f, ~(1 << 2));
+        RaycastHit hitInfo;
+        var grounded = Physics.Raycast(transform.position + (transform.forward + Vector3.up) * .25f, Vector3.down, out hitInfo, 1f, ~(1 << 2));
+
+        if (hitInfo.collider && hitInfo.collider.isTrigger)
+            return;
 
         if (_waitingToLand)
         {
