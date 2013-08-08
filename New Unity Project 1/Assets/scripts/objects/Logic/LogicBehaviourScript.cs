@@ -12,10 +12,11 @@ public class LogicBehaviourScript : InteractiveObject
     private bool _requiresResync;
     private bool _locked;
 
-    private void Start()
+    protected override void Start()
     {
-        foreach (ObjectState t in requiredObjects)
+        for ( var i = 0; i < requiredObjects.Length; i++ )
         {
+            var t = requiredObjects[i];
             t.targetObject.OnActivate += RequireResync;
             t.targetObject.OnDeactivate += RequireResync;
         }
@@ -47,14 +48,21 @@ public class LogicBehaviourScript : InteractiveObject
 
         for (var i = 0; i < requiredObjects.Length; i++)
         {
-            if (requiredObjects[i].targetObject.objectActive == requiredObjects[i].requiredState) continue;
+            if (requiredObjects[i].targetObject.objectActive == 
+				requiredObjects[i].requiredState) 
+					continue;
 
             allCorrect = false;
             i = requiredObjects.Length;
         }
 
         if (allCorrect != objectActive)
-            TriggerObjects();
+        {
+            if (objectActive)
+                DeactivateObject(null);
+            else
+                ActivateObject(null);
+        }
     }
 
     private void TriggerObjects()
@@ -64,8 +72,6 @@ public class LogicBehaviourScript : InteractiveObject
             var t = targetObjects[i];
             t.ToggleObject(this);
         }
-
-        objectActive = !objectActive;
 
         if (lockAfterUsed && objectActive)
             _locked = true;
@@ -92,7 +98,21 @@ public class LogicBehaviourScript : InteractiveObject
                 if (targetObjects[i])
                     Gizmos.DrawLine(transform.position, targetObjects[i].transform.position);
     }
+	
+	public override void ActivateObject(object sender)
+	{
+		base.ActivateObject(sender);
 
+        TriggerObjects();
+	}
+	
+	public override void DeactivateObject(object sender)
+	{
+		base.DeactivateObject(sender);	
+		
+		TriggerObjects();
+	}
+	
     private void OnDrawGizmos()
     {
         Gizmos.color = objectActive ? Color.green : Color.red;
