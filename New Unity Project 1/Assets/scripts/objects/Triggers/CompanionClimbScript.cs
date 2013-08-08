@@ -20,7 +20,7 @@ public class CompanionClimbScript : InteractiveObject
         _meshLink = GetComponent<OffMeshLink>();
     }
 
-    private void Start()
+    protected override void Start()
     {
         _companionAgent = _companionScript.GetAgent();
         _companionBaseSpeed = _companionAgent.speed;
