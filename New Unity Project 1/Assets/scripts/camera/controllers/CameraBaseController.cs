@@ -52,7 +52,7 @@ public abstract class CameraBaseController : InteractiveObject
                 new Vector3(cameraTarget.position.x,
                             cameraTransformNode.transform.position.y,
                             cameraTarget.position.z) -
-                cameraTransformNode.transform.position);
+                cameraTransformNode.transform.position, Vector3.up);
 
             targetRotation.x = cameraTransformNode.transform.rotation.x;
         }
