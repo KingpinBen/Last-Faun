@@ -52,7 +52,7 @@ public class PlayerScript : Character
         _moveDirection = transform.TransformDirection(Vector3.forward);
     }
 
-    protected override void Update()
+    protected void FixedUpdate()
     {
         if (!IsControllable)
         {
@@ -103,7 +103,8 @@ public class PlayerScript : Character
         if (IsGrounded())
         {
             _inAirVelocity = Vector3.zero;
-            transform.rotation = Quaternion.LookRotation(_moveDirection);
+                
+            HandleRotation(_moveDirection);
         }
         else
         {
@@ -111,7 +112,7 @@ public class PlayerScript : Character
             xzMove.y = 0;
 
             if (xzMove.sqrMagnitude > 0.001)
-                transform.rotation = Quaternion.LookRotation(xzMove);
+                HandleRotation(xzMove);
         }
 
         if (_appliedForce.magnitude > 0.2f)
@@ -119,6 +120,14 @@ public class PlayerScript : Character
             _characterController.Move(_appliedForce*Time.deltaTime);
             _appliedForce = Vector3.Slerp(_appliedForce, Vector3.zero, Time.deltaTime*3.0f);
         }
+    }
+
+    void HandleRotation(Vector3 lookTowards)
+    {
+        var rotation = Quaternion.LookRotation( lookTowards );
+        rotation = Quaternion.Lerp( transform.rotation, rotation, 15 * Time.deltaTime );
+
+        transform.rotation = rotation;
     }
 
     private void UpdateSmoothedMovementDirection()
@@ -131,7 +140,9 @@ public class PlayerScript : Character
         var ah = Mathf.Abs(h);
         var s = ah > av ? ah : av;
 
-        _animator.SetFloat("Speed", s);
+
+        //  We'll just dampen the start a bit so the animation lines up a bit better
+        _animator.SetFloat(_hashes.speed, s, 0.1f, Time.deltaTime);
 
         if (Math.Abs(h + v) < Mathf.Epsilon)
         {
