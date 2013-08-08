@@ -13,39 +13,32 @@ public class DoorScript : InteractiveObject
 
     private bool _isMoving;
 
-    void Start()
+    private void Update()
     {
-        if (!objectActive)
-        {
-            DeactivateObject(null);
-        }
-    }
+        if ( !_isMoving )
+            return;
 
-    void Update()
-    {
-        if (!_isMoving) return;
-
-        if (rotates == false)
+        if ( rotates == false )
         {
             var targetPosition = Vector3.zero;
 
-            if (objectActive)
+            if ( objectActive )
             {
-                targetPosition = new Vector3(0, distanceToMove, 0);
+                targetPosition = new Vector3( 0, distanceToMove, 0 );
 
                 door.transform.localPosition =
-                    Vector3.Slerp(door.transform.localPosition,
-                                  targetPosition, Time.deltaTime * openingSpeed);
+                    Vector3.Slerp( door.transform.localPosition,
+                                   targetPosition, Time.deltaTime * openingSpeed );
             }
             else
             {
                 door.transform.localPosition =
-                    Vector3.Slerp(door.transform.localPosition,
-                                  targetPosition, Time.deltaTime * closingSpeed);
+                    Vector3.Slerp( door.transform.localPosition,
+                                   targetPosition, Time.deltaTime * closingSpeed );
             }
-                
 
-            if (door.transform.localPosition == targetPosition)
+
+            if ( door.transform.localPosition == targetPosition )
             {
                 _isMoving = false;
             }
@@ -57,20 +50,20 @@ public class DoorScript : InteractiveObject
     /// E.g. bridge down, door open,
     /// </summary>
     /// <param name="sender"></param>
-    public override void ActivateObject(object sender)
+    public override void ActivateObject( object sender )
     {
-        if (navObstacle)
+        if ( navObstacle )
         {
             navObstacle.enabled = false;
         }
 
-        if (rotates && pivot)
+        if ( rotates && pivot )
         {
             pivot.Close();
         }
-            
 
-        base.ActivateObject(sender);
+
+        base.ActivateObject( sender );
         _isMoving = true;
     }
 
@@ -79,19 +72,19 @@ public class DoorScript : InteractiveObject
     /// E.g. bridge up, door closed,
     /// </summary>
     /// <param name="sender"></param>
-    public override void DeactivateObject(object sender)
+    public override void DeactivateObject( object sender )
     {
-        if (navObstacle)
+        if ( navObstacle )
         {
             navObstacle.enabled = true;
         }
 
-        if (rotates && pivot)
+        if ( rotates && pivot )
         {
             pivot.Open();
         }
 
-        base.DeactivateObject(sender);
+        base.DeactivateObject( sender );
         _isMoving = true;
     }
 }
