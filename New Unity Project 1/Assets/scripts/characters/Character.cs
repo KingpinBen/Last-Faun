@@ -2,9 +2,9 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-[RequireComponent(typeof(Animator)),
-RequireComponent(typeof(NavMeshAgent)),
-RequireComponent(typeof(CharacterController))]
+[RequireComponent( typeof ( Animator ) ),
+ RequireComponent( typeof ( CharacterController ) )]
+[RequireComponent( typeof ( CharacterAnimationHashes ) )]
 public class Character : MonoBehaviour
 {
     public Transform leftHand;
@@ -14,87 +14,89 @@ public class Character : MonoBehaviour
     public CharacterAction currentAction { get; protected set; }
 
     protected Animator _animator;
-    protected NavMeshAgent _navAgent;
-    protected readonly List<SlowZoneScript> _slowZones = new List<SlowZoneScript>();
+
+    protected CharacterAnimationHashes _hashes;
+    protected readonly List< SlowZoneScript > _slowZones = new List< SlowZoneScript >();
 
     protected virtual void Awake()
     {
-        _animator = GetComponent<Animator>();
-        _navAgent = GetComponent<NavMeshAgent>();
+        _animator = GetComponent< Animator >();
+        _hashes = GetComponent< CharacterAnimationHashes >();
     }
 
-	protected virtual void Start ()
-	{
-	    
-	}
+    protected virtual void Start()
+    {
+
+    }
 
     protected virtual void Update()
     {
-	
-	}
 
-    public virtual void RegisterSlowZone(SlowZoneScript script)
-    {
-        if (_slowZones.Count == 0)
-            _animator.SetBool("Slowed", true);
-
-
-        _slowZones.Add(script);
     }
 
-    public virtual void RemoveSlowZone(SlowZoneScript script)
+    public virtual void RegisterSlowZone( SlowZoneScript script )
     {
-        for(var i = 0; i < _slowZones.Count; ++i)
-        {
-            if (_slowZones[i] != script) continue;
+        if ( _slowZones.Count == 0 )
+            _animator.SetBool(_hashes.slowed, true );
 
-            _slowZones.RemoveAt(i);
+        _slowZones.Add( script );
+    }
+
+    public virtual void RemoveSlowZone( SlowZoneScript script )
+    {
+        for ( var i = 0; i < _slowZones.Count; ++i )
+        {
+            if ( _slowZones[i] != script )
+                continue;
+
+            _slowZones.RemoveAt( i );
             break;
         }
 
-        if (_slowZones.Count == 0)
-            _animator.SetBool("Slowed", false);
+        if ( _slowZones.Count == 0 )
+            _animator.SetBool(_hashes.slowed, false);
     }
 
-    public virtual void SetCurrentAction(CharacterAction newAction)
+    public virtual void SetCurrentAction( CharacterAction newAction )
     {
-        if (newAction == currentAction) return;
+        if ( newAction == currentAction )
+            return;
 
-        switch (newAction)
+        switch ( newAction )
         {
             case CharacterAction.Waiting:
             case CharacterAction.None:
-                _animator.SetInteger("CurrentAction", 0);
+                _animator.SetInteger( _hashes.currentAction, 0 );
                 break;
             case CharacterAction.Carrying:
-                _animator.SetInteger("CurrentAction", 1);
+                _animator.SetInteger(_hashes.currentAction, 1);
                 break;
             case CharacterAction.Pushing:
-                _animator.SetInteger("CurrentAction", 2);
+                _animator.SetInteger(_hashes.currentAction, 2);
                 break;
             case CharacterAction.Climbing:
-                _animator.SetInteger("CurrentAction", 3);
+                _animator.SetInteger(_hashes.currentAction, 3);
                 break;
             case CharacterAction.Boosting:
-                _animator.SetInteger("CurrentAction", 4);
+                _animator.SetInteger(_hashes.currentAction, 4);
                 break;
             case CharacterAction.UsingLever:
-                _animator.SetInteger("CurrentAction", 5);
+                _animator.SetInteger(_hashes.currentAction, 5);
                 break;
             case CharacterAction.Jumping:
-                _animator.SetInteger("CurrentAction", 6);
+                _animator.SetInteger(_hashes.currentAction, 6);
                 break;
             case CharacterAction.Pulling:
-                _animator.SetInteger("CurrentAction", 7);
+                _animator.SetInteger(_hashes.currentAction, 7);
                 break;
         }
 
         currentAction = newAction;
     }
 
-    public NavMeshAgent GetAgent()
+    public void SetCompleteAction(bool toSet)
     {
-        return _navAgent;
+        _animator.SetBool(_hashes.completeAction, toSet);
     }
 
     public Animator GetAnimator()
@@ -104,10 +106,10 @@ public class Character : MonoBehaviour
 
     public enum CharacterAction
     {
-        None, 
-        Waiting, 
+        None,
+        Waiting,
         Boosting,
-        Carrying, 
+        Carrying,
         Pushing,
         Climbing,
         UsingLever,
