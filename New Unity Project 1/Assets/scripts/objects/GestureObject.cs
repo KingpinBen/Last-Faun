@@ -29,7 +29,7 @@ public class GestureObject : InteractiveObject
         _companionScript = companion.GetComponent<CompanionScript>();
     }
 
-    protected  virtual void Start()
+    protected override void Start()
     {
     }
 
@@ -108,10 +108,12 @@ public class GestureObject : InteractiveObject
         _successfulGesture = true;
 
         CursorManager.instance.ChangeCursorStatus(CursorManager.CursorGestureStatus.Successful);
+        _companionScript.GetEmotions().InstantiateEmoticon(Emotions.Good);
     }
 
     protected  virtual void FailedGesture()
     {
         CursorManager.instance.ChangeCursorStatus(CursorManager.CursorGestureStatus.Failed);
+        _companionScript.GetEmotions().InstantiateEmoticon(Emotions.Bad);
     }
 }
