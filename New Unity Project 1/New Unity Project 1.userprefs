@@ -1,29 +1,14 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\scripts\objects\Triggers\OutOfBoundsZone.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\scripts\objects\Logic\LogicBehaviourScript.cs">
     <Files>
-      <File FileName="Assets\Scripts\Camera\CameraManagerScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Camera\CameraNodeScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Characters\Companion\CompanionScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Camera\Controllers\CameraLineController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Objects\InteractiveObject.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Objects\Button\PressurePadScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Objects\Bridge\BridgeScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Camera\Controllers\CameraQuadraticController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Objects\Logic\LogicBehaviourScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Camera\Controllers\CameraPointController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Camera\Controllers\CameraBaseController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Objects\Triggers\ChangeLevelScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Characters\Companion\CompanionScript.cs" Line="3" Column="37" />
       <File FileName="Assets\Scripts\Characters\Companion\EmoticonScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Objects\Boulder Pick Up\BoulderScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Objects\GestureObject.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Objects\Button\LeverSwitchScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Objects\ButtonKey\ButtonKeyScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\scripts\Objects\Dynamic\DoorScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\scripts\objects\Block\BlockScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\scripts\characters\player\PlayerJumpScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\materials\shaders\Toony-Lighted.shader" Line="11" Column="12" />
-      <File FileName="Assets\scripts\objects\Triggers\OutOfBoundsZone.cs" Line="60" Column="40" />
+      <File FileName="Assets\Scripts\Objects\Boulder Pick Up\BoulderScript.cs" Line="71" Column="55" />
+      <File FileName="Assets\scripts\ai\AICharacter.cs" Line="74" Column="56" />
+      <File FileName="Assets\scripts\camera\controllers\CameraBaseController.cs" Line="55" Column="67" />
+      <File FileName="Assets\scripts\objects\Button\PressurePadScript.cs" Line="121" Column="4" />
+      <File FileName="Assets\scripts\objects\Logic\LogicBehaviourScript.cs" Line="50" Column="65" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

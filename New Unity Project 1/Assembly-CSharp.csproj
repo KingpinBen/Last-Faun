@@ -55,6 +55,7 @@
      <Compile Include="Assets\scripts\camera\controllers\CameraPointController.cs" />
      <Compile Include="Assets\scripts\camera\controllers\CameraQuadraticController.cs" />
      <Compile Include="Assets\scripts\characters\Character.cs" />
+     <Compile Include="Assets\scripts\characters\CharacterAnimationHashes.cs" />
      <Compile Include="Assets\scripts\characters\companion\CompanionScript.cs" />
      <Compile Include="Assets\scripts\characters\companion\EmoticonDisplayScript.cs" />
      <Compile Include="Assets\scripts\characters\companion\EmoticonScript.cs" />

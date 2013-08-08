@@ -33,10 +33,11 @@ Shader "Custom/Projector"
 			v2f vert (appdata_base v)
 			{
 				v2f o;
+
 				o.vertex = mul(UNITY_MATRIX_MVP, v.vertex);
 				o.texcoord = mul (_Projector, v.vertex);
 				o.normal = mul (_Projector, half4(v.normal, 0));
-				o.worldPos = mul (_Projector, v.vertex);
+
 				return o;
 			}
 			
@@ -44,13 +45,11 @@ Shader "Custom/Projector"
 			{
 				half4 col = tex2Dproj (_MainTex, UNITY_PROJ_COORD(i.texcoord));
 				half3 norm = (i.normal * .5) + .5;
-				i.worldPos.y -= 5;
-				fixed n = dot(i.worldPos, i.normal);
 
 				if (i.texcoord.w < .5 || norm.b > .01)
 					col.a = 0;
 
-				return col * n;
+				return col;
 			}
 		ENDCG
 		}
