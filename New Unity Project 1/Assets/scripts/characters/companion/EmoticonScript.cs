@@ -15,7 +15,8 @@ public class EmoticonScript : MonoBehaviour
     private void Awake()
     {
         _material = renderer.material;
-        _forwardUp = Quaternion.FromToRotation(Vector3.up, Vector3.forward);
+        //  The model we're using needs rotating to -90x to be facing up
+        _forwardUp = Quaternion.FromToRotation(Vector3.left, Vector3.zero);
     }
 
     private void Start()
@@ -32,22 +33,26 @@ public class EmoticonScript : MonoBehaviour
 
         if (_color.a > 0.0f)
         {
-            _color.a -= Time.deltaTime / fadeOutTime;
+            _color.a -= Time.deltaTime * fadeOutTime;
             _material.color = _color;
         }
     }
 
     public void SetTexture(int tileX)
     {
-        _material.mainTextureOffset = new Vector2(.25f * tileX, 0);
-        _material.color = Color.white;
+        _color = Color.white;
+        _material.mainTextureOffset = new Vector2(.5f * tileX, 0);
+        _material.color = _color;
 
+        StopAllCoroutines();
         StartCoroutine(StartFadeOut());
     }
 
     private IEnumerator StartFadeOut()
     {
+        _isFading = false;
         yield return new WaitForSeconds(showingTime);
+
         _isFading = true;
     }
 }
