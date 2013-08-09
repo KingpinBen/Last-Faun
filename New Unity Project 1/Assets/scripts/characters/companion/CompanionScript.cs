@@ -23,6 +23,22 @@ public class CompanionScript : AiCharacter
         base.Start();
     }
 
+    protected override void Update()
+    {
+        base.Update();
+
+        if (_canReachTarget)
+        {
+            if (_emoticon.currentEmoticon == 17)
+                _emoticon.currentEmoticon = 0;
+        }
+        else
+        {
+            if (_emoticon.currentEmoticon == 0)
+                _emoticon.currentEmoticon = 17;
+        }
+    }
+
     public EmoticonDisplayScript GetEmotions()
     {
         return _emoticon;
