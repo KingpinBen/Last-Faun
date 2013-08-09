@@ -128,4 +128,9 @@ public class Character : MonoBehaviour
     {
         return _hashes;
     }
+
+    public bool IsSlowed()
+    {
+        return _slowZones.Count > 0;
+    }
 }
