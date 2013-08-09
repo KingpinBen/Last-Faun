@@ -24,7 +24,7 @@ public class PlayerJumpScript : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!_playerScript.IsIdle()) return;
+        if (!_playerScript.IsIdle() || !_playerScript.IsControllable) return;
 
         if (_targetBody)
         {
