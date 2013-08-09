@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[RequireComponent(typeof(NavMeshAgent))]
+[RequireComponent( typeof ( NavMeshAgent ) )]
 public class AiCharacter : Character
 {
     public float maximumDistanceFromTarget = 30;
@@ -8,8 +8,10 @@ public class AiCharacter : Character
 
     protected AINode _target;
     protected NavMeshAgent _navAgent;
+    protected bool _canReachTarget;
 
     private Vector3 _lastGoodPosition;
+    private Vector3[] _pathPoints;
 
     public AINode Target
     {
@@ -26,7 +28,7 @@ public class AiCharacter : Character
 
             //  We should force it false and make it check.
             waitingAtTarget = false;
-			CheckIfWaiting();
+            CheckIfWaiting();
         }
     }
 
@@ -51,77 +53,77 @@ public class AiCharacter : Character
     protected override void Update()
     {
         Navigate();
-		CheckIfWaiting();
-		
-		_animator.SetFloat( _hashes.speed, ( _navAgent.velocity.magnitude / 3.3f ) );
+        CheckIfWaiting();
+
+        _animator.SetFloat( _hashes.speed, Mathf.Clamp01( _navAgent.velocity.magnitude / _navAgent.speed ) );
     }
-	
-	void CheckIfWaiting() 
-	{
-        if (!_navAgent.enabled)
+
+    private void CheckIfWaiting()
+    {
+        if ( !_navAgent.enabled )
             return;
 
         //  Check if the destination is the targets current position.
         //  They can be different as navagent uses last known good position
-		if (Mathf.Abs((_navAgent.destination - _target.transform.position).magnitude) < .5f)
-		{
-			waitingAtTarget = _navAgent.remainingDistance <= _navAgent.stoppingDistance;
-		}
-	}
-	
-	private float CalculatePathDistance(Vector3 targetPosition)
-	{
-		var path = new NavMeshPath();
-                var i = 0;
-                _navAgent.CalculatePath( targetPosition, path );
+        if ( Mathf.Abs( ( _navAgent.destination - _target.transform.position ).magnitude ) < .5f )
+        {
+            waitingAtTarget = _navAgent.remainingDistance <= _navAgent.stoppingDistance;
+        }
+    }
 
-                var allWayPoints = new Vector3[path.corners.Length + 2];
-                allWayPoints[0] = transform.position;
-                allWayPoints[allWayPoints.Length - 1] = targetPosition;
+    private float CalculatePathDistance( Vector3 targetPosition )
+    {
+        var path = new NavMeshPath();
+        var i = 0;
+        _navAgent.CalculatePath( targetPosition, path );
 
-                for ( ; i < path.corners.Length; i++ )
-                {
-                    allWayPoints[i + 1] = path.corners[i];
-                }
+        var allWayPoints = new Vector3[path.corners.Length + 2];
+        allWayPoints[0] = transform.position;
+        allWayPoints[allWayPoints.Length - 1] = targetPosition;
 
-                var pathDistance = 0.0f;
+        for ( ; i < path.corners.Length; i++ )
+        {
+            allWayPoints[i + 1] = path.corners[i];
+        }
 
-                for ( i = 0; i < allWayPoints.Length - 1; i++ )
-                {
-                    pathDistance += Vector3.Distance( allWayPoints[i], allWayPoints[i + 1] );
-                }
-		
-		return pathDistance;
-	}
+        _pathPoints = allWayPoints;
+
+        var pathDistance = 0.0f;
+
+        for ( i = 0; i < allWayPoints.Length - 1; i++ )
+        {
+            pathDistance += Vector3.Distance( allWayPoints[i], allWayPoints[i + 1] );
+        }
+
+        _canReachTarget =   path.status == NavMeshPathStatus.PathComplete && 
+                            pathDistance <= maximumDistanceFromTarget;
+
+        return pathDistance;
+    }
 
     private void Navigate()
     {
         if ( _navAgent.enabled )
         {
             var targetIsPlayer = ( _target as PlayerAINode ) != null;
-            var targetTransform = _target.transform;
+            var targetPosition= _target.transform.position;
 
             if ( targetIsPlayer )
             {
-                if ( targetTransform.position == _lastGoodPosition )
-                {
-                    return;
-                }
-				
-				var distance = CalculatePathDistance(targetTransform.position);
+                CalculatePathDistance(targetPosition);
 
-                if (distance <= maximumDistanceFromTarget)
+                if ( _canReachTarget)
                 {
-                    _navAgent.SetDestination( targetTransform.position );
-                    _lastGoodPosition = targetTransform.position;
+                    _navAgent.SetDestination(targetPosition);
+                    _lastGoodPosition = targetPosition;
                 }
             }
             else
             {
-                if ( _target.transform.position != _lastGoodPosition )
+                if (targetPosition != _lastGoodPosition)
                 {
-                    _navAgent.SetDestination( targetTransform.position );
-                    _lastGoodPosition = targetTransform.position;
+                    _navAgent.SetDestination(targetPosition);
+                    _lastGoodPosition = targetPosition;
                 }
             }
         }
@@ -159,5 +161,16 @@ public class AiCharacter : Character
     public NavMeshAgent GetAgent()
     {
         return _navAgent;
+    }
+
+    void OnDrawGizmos()
+    {
+        if (_pathPoints != null)
+        {
+            for(var i =1; i < _pathPoints.Length; i++)
+            {
+                Gizmos.DrawLine(_pathPoints[i-1], _pathPoints[i]);
+            }
+        }
     }
 }
