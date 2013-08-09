@@ -7,26 +7,41 @@ using UnityEngine;
 public class ButtonScript : InteractiveObject
 {
     public ButtonKeyScript keyObject;
-    public InteractiveObject targetObject;
+    public bool requiresKey;
 
-    private bool _playerInRange;
+    private InteractiveObject _stateObject;
+
+    private bool _requiredObjectInRange;
+    private ButtonKeyScript _keyInRange;
+
+    void Awake()
+    {
+        _stateObject = transform.parent.GetComponentInChildren< ToggleStateObject >();
+        if (!_stateObject)
+        {
+            gameObject.SetActive(false);
+            Debug.Log("Could not find a ToggleStateObject to use! Disabling this object.");
+
+        }
+            
+    }
 
     void Update()
     {
-        if (objectActive && _playerInRange)
+        if (objectActive && _requiredObjectInRange)
         {
             if (Input.GetButtonDown("Fire1"))
             {
-                targetObject.ToggleObject(this);
+                _stateObject.ToggleObject(this);
 
-                if (keyObject)
+                if (_keyInRange)
                 {
-                    keyObject.collider.enabled = false;
+                    _keyInRange.collider.enabled = false;
                     //  TODO: Remove this. Only want to get it off the character for now.
-                    keyObject.transform.parent = transform;
-                    keyObject.transform.localPosition = new Vector3(0, 2, 0);
-                    keyObject.SetKeyState(ButtonKeyScript.KeyState.OnButton);
-                    _playerInRange = false;
+                    _keyInRange.transform.parent = transform;
+                    _keyInRange.transform.localPosition = new Vector3(0, 2, 0);
+                    _keyInRange.SetKeyState(ButtonKeyScript.KeyState.OnButton);
+                    _requiredObjectInRange = false;
                 }
             }
         }
@@ -34,28 +49,64 @@ public class ButtonScript : InteractiveObject
 
     void OnTriggerEnter(Collider body)
     {
-        if (keyObject)
+        if (requiresKey)
         {
-            if (body.name == keyObject.name)
-                _playerInRange = true;
+            var key = body.GetComponent< ButtonKeyScript >();
+
+            if (!key)
+                return;
+
+            if (keyObject)
+            {
+                if (key.gameObject == keyObject.gameObject)
+                {
+                    _requiredObjectInRange = true;
+                    _keyInRange = key;
+                }
+            }
+            else
+            {
+                _requiredObjectInRange = true;
+                _keyInRange = key;
+            }
         }
         else
         {
             if (body.tag == "Player")
-                _playerInRange = true;
+            {
+                _requiredObjectInRange = true;
+            }
         }
     }
     void OnTriggerExit(Collider body)
     {
-        if (keyObject)
+        if (requiresKey)
         {
-            if (body.name == keyObject.name)
-                _playerInRange = false;
+            var key = body.GetComponent<ButtonKeyScript>();
+
+            if (!key)
+                return;
+
+            if (keyObject)
+            {
+                if (key.gameObject == keyObject.gameObject)
+                {
+                    _requiredObjectInRange = false;
+                    _keyInRange = null;
+                }
+            }
+            else
+            {
+                _requiredObjectInRange = false;
+                _keyInRange = null;
+            }
         }
         else
         {
             if (body.tag == "Player")
-                _playerInRange = false;
+            {
+                _requiredObjectInRange = false;
+            }
         }
     }
 }
