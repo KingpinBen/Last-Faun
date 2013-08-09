@@ -9,8 +9,9 @@ public class BlockTrackTarget : MonoBehaviour
     void OnDrawGizmos()
     {
         var col = collider as BoxCollider;
+        Gizmos.matrix = Matrix4x4.TRS( transform.position, transform.rotation, transform.lossyScale );
 
         Gizmos.color = Color.green * 0.75f;
-        Gizmos.DrawCube(transform.position + col.center, col.size);
+        Gizmos.DrawCube( col.center, col.size);
     }
 }
