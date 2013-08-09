@@ -7,7 +7,7 @@ Shader "Custom/Water" {
 		_WaveHeight ("Wave Height", Range(0, .2)) = .1 
 	}
 	SubShader {
-		Tags { "RenderType"="Opaque" }
+		Tags { "RenderType"="Opaque" "IgnoreProjector"="True" }
 		LOD 200
 		
 		Pass
@@ -51,6 +51,10 @@ Shader "Custom/Water" {
 				half acceptableHeightOffset = 0.02;
 				half targetPixelHeight = abs(sin(_Time * 10 - (i.pos.x - i.pos.y) * .5) * 2) * .1;
 
+				////	lerped
+				//return lerp(_Highlight, _Color, clamp( clamp( distance( pixelHeight, targetPixelHeight ), 0, 0.05) * 50, 0, 1) );
+
+				//	hard edges
 				return (pixelHeight > targetPixelHeight - acceptableHeightOffset && 
 					pixelHeight < targetPixelHeight + acceptableHeightOffset) ? 
 						_Highlight : _Color;
