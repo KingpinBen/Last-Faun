@@ -30,8 +30,8 @@ public class BoostPlatformScript : GestureObject
                         if (_companionScript.CheckAtTargetByDistance())
                         {
                             //  Force the companion to look perpendicular to the platform and wait.
-                            var lookAway = Quaternion.LookRotation(
-                                transform.position - model.transform.position);
+                            var lookAway = Quaternion.LookRotation(-transform.forward);
+                            //lookAway.y = 0;
 
                             _companionScript.transform.rotation = lookAway;
                             _companionScript.SetCurrentAction(Character.CharacterAction.Boosting);
@@ -81,16 +81,12 @@ public class BoostPlatformScript : GestureObject
                 {
                     if (_playerInRange)
                     {
-                        var lookAway = Quaternion.LookRotation(
-                            _player.transform.position - aiTargetNode.transform.position);
-
-                        _companionScript.transform.rotation = lookAway;
+                        _player.transform.parent.position = transform.position - transform.forward * 1.3f;
+                        _companionScript.transform.rotation = Quaternion.LookRotation(-transform.forward);
 
                         aiTargetNode.agent.enabled = false;
-                        _companionScript.GetAnimator().SetBool("CompleteAction", true);
+                        _companionScript.SetCompleteAction(true);
 
-                        matchTarget.SetMatchTarget();
-                        _playerInRange = false;
                         StartCoroutine(ResetAfterUse());
                     }
                 }
@@ -111,34 +107,43 @@ public class BoostPlatformScript : GestureObject
                     _status = BoostPlatStatus.Idle;
                 }
                 break;
+            case BoostPlatStatus.TimeWaster:
+                break;
         }
     }
 
     protected override void ProcessReceivedGesture()
     {
-        switch (_receivedGesture)
+        if (_playerInRange)
         {
-            case GestureType.Up:
-                SuccessfulGesture();
-                break;
-            default:
-                FailedGesture();
-                break;
+            switch (_receivedGesture)
+            {
+                case GestureType.Up:
+                    SuccessfulGesture();
+                    break;
+                default:
+                    FailedGesture();
+                    break;
+            }
         }
-
+        
         _receivedGesture = GestureType.None;
     }
 
     protected override void OnMouseEnter()
     {
-        if (!objectActive) return;
+        if (!objectActive) 
+            return;
+
         _isMouseOvered = true;
         CheckInRange();
     }
 
     protected override void OnMouseExit()
     {
-        if (!objectActive) return;
+        if (!objectActive) 
+            return;
+
         _isMouseOvered = false;
         CheckInRange();
     }
@@ -153,7 +158,9 @@ public class BoostPlatformScript : GestureObject
     }
     private void OnTriggerExit(Collider body)
     {
-        if (body.tag != "Player") return;
+        if (body.tag != "Player") 
+            return;
+
         _playerInRange = false;
         CheckInRange();
     }
@@ -168,18 +175,24 @@ public class BoostPlatformScript : GestureObject
 
     IEnumerator ResetAfterUse()
     {
-        yield return new WaitForSeconds(.5f);
+        matchTarget.SetMatchTarget();
+        _status = BoostPlatStatus.TimeWaster;
 
+        yield return new WaitForSeconds(.5f);
+        _companionScript.SetCompleteAction(false);
+
+        yield return new WaitForSeconds( 1.5f );
         _status = BoostPlatStatus.Resetting;
-        _companionScript.GetAnimator().SetBool("CompleteAction", false);
+        
     }
 
-    internal enum BoostPlatStatus
+    private enum BoostPlatStatus
     {
         Idle,
         Waiting,
         Boosting,
-        Resetting
+        Resetting,
+        TimeWaster
     }
 
     protected override void FailedGesture()
