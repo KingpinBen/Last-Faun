@@ -61,9 +61,6 @@ public class AINode : InteractiveObject
 
     public override void ActivateObject(object sender)
     {
-        if (_aiCharacter.Target)
-            _aiCharacter.Target.DeactivateObject(this);
-
         _aiCharacter.Target = this;
 
         agent.stoppingDistance = stoppingDistance;
