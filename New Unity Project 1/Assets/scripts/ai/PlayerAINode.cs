@@ -17,12 +17,11 @@ public class PlayerAINode : AINode
 
 	protected override void Update ()
 	{
-        var directionToCompanion = _aiCharacter.transform.position - _transform.parent.position;
+        base.Update();
+
+        var directionToCompanion = (_aiCharacter.transform.position - _transform.parent.position).normalized;
 	    directionToCompanion.y = 0;
-        directionToCompanion.Normalize();
 
-        _transform.position = _transform.parent.position + directionToCompanion * minimumDistanceFromPlayer;
-
-	    base.Update();
+        _transform.position = Vector3.Slerp(_transform.position, _transform.parent.position + directionToCompanion * minimumDistanceFromPlayer, Time.deltaTime * 3);
 	}
 }
