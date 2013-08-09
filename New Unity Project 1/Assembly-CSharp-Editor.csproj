@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Editor\AutoSave.cs" />
+     <Compile Include="Assets\Editor\ButtonEditor.cs" />
      <Compile Include="Assets\Editor\CameraLineEditor.cs" />
      <Compile Include="Assets\Editor\CameraPointEditor.cs" />
      <Compile Include="Assets\Editor\CameraQuadEditor.cs" />
