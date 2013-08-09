@@ -11,7 +11,8 @@ public class MainMenuGui : MonoBehaviour
     private int _levelToLoad = -1;
     private Matrix4x4 _guiMatrix;
     private Rect _guiRect = new Rect(0,0,200, 200);
-    public Color _tintColor = Color.black * 0f;
+    private Color _tintColor = Color.black * 0f;
+    private float _guiScale;
 
     void Start()
     {
@@ -43,28 +44,24 @@ public class MainMenuGui : MonoBehaviour
 
             GUI.matrix = _guiMatrix;
 
-            GUILayout.BeginArea(_guiRect);
-
             if (SaveManager.loadFound)
             {
-                if (GUILayout.Button("Continue"))
+                if (GUILayout.Button("Continue", skin.customStyles[0]))
                 {
                     LoadLevel(SaveManager.currentLevel);
                 }
             }
 
-            if (GUILayout.Button("New Game"))
+            if (GUILayout.Button("New Game", skin.customStyles[0]))
             {
-                //  Check if we should override
+                //  Check if we should override save
                 LoadLevel(1);
             }
 
-            if (GUILayout.Button("Exit Game"))
+            if (GUILayout.Button("Exit Game", skin.customStyles[0]))
             {
                 Application.Quit();
             }
-
-            GUILayout.EndArea();
         }
     }
 
@@ -78,13 +75,12 @@ public class MainMenuGui : MonoBehaviour
 
     void UpdateGui()
     {
-        var scale = 
+        _guiScale = 
             ((Screen.height < Screen.width) ? Screen.height : Screen.width) * 0.001f;
 
         _guiMatrix = Matrix4x4.TRS(
-            new Vector3(Screen.width - (_guiRect.xMax + menuOffset.x) * scale,
-                (menuOffset.y) * scale, 0), 
-                Quaternion.identity, new Vector3(scale, scale, 1));
+            new Vector3(Screen.width - menuOffset.x, menuOffset.y, 0),
+                Quaternion.identity, new Vector3(_guiScale, _guiScale, 1));
     }
 
     IEnumerator TransitionOutToLevel()
