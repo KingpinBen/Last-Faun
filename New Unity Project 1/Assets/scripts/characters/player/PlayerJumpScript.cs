@@ -24,25 +24,27 @@ public class PlayerJumpScript : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!_playerScript.IsIdle() || !_playerScript.IsControllable) return;
+        if (!(_playerScript.IsIdle() || _playerScript.IsControllable)) 
+            return;
 
         if (_targetBody)
         {
             var sqrDistanceFromTarget = (_targetBody.position - transform.position).sqrMagnitude;
             if (sqrDistanceFromTarget < 2 || sqrDistanceFromTarget > 9)
+            {
                 TargetBody = null;
+            }
         }
 
         RaycastHit hitInfo;
-        var grounded = Physics.Raycast(transform.position + (transform.forward + Vector3.up) * .25f, Vector3.down, out hitInfo, 1f, ~(1 << 2));
-
-        if (hitInfo.collider && hitInfo.collider.isTrigger)
-            return;
+        var grounded = Physics.Raycast(transform.position + (transform.forward + Vector3.up) * .25f, Vector3.down, out hitInfo, 1f, LayerMasks.IGNORE_RAY_GEST);
 
         if (_waitingToLand)
         {
-            if (grounded) 
+            if (grounded)
+            {
                 _waitingToLand = false;
+            }
         }
         else
         {
