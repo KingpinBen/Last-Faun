@@ -29,6 +29,8 @@ public class PlayerScript : Character
     private Transform _cameraTransform;
     private Transform _matchTarget;
 
+    private readonly int _boostAnimHash = Animator.StringToHash( "Base Layer.Boost" );
+
     public PlayerScript()
     {
         IsControllable = true;
@@ -52,7 +54,7 @@ public class PlayerScript : Character
         _moveDirection = transform.TransformDirection(Vector3.forward);
     }
 
-    protected void FixedUpdate()
+    protected override void Update()
     {
         if (!IsControllable)
         {
@@ -60,33 +62,36 @@ public class PlayerScript : Character
 
             if (_isBeingThrown)
             {
-                var state = _animator.GetCurrentAnimatorStateInfo(0);
+                var animationState = _animator.GetCurrentAnimatorStateInfo( 0 );
 
-                if (state.IsName("Base Layer.Boost"))
+                if (animationState.nameHash == _boostAnimHash)
                 {
-                    //_navAgent.enabled = false;
-                    _animator.applyRootMotion = true;
+                    //  The kid is still being boosted   
                     _hasBeenThrown = true;
                     SetCurrentAction(CharacterAction.None);
 
                     _animator.MatchTarget(_matchTarget.position, _matchTarget.rotation, AvatarTarget.Root,
-                                      new MatchTargetWeightMask(new Vector3(1, 1, 1), 1), 0.0f, 1f);
+                                      new MatchTargetWeightMask(new Vector3(0, 1, 1), 0), 0.1f, 1f);
                 }
                 else
                 {
+                    //  Finished animation but still in boost logic.
                     if (_hasBeenThrown)
                     {
-                        //_navAgent.enabled = true;
                         _hasBeenThrown = false;
                         _isBeingThrown = false;
                         IsControllable = true;
                         _animator.applyRootMotion = false;
                     }
                 }
-
-                return;
             }
         }
+    }
+
+    protected void FixedUpdate()
+    {
+        if (!IsControllable)
+            return;
 
         UpdateSmoothedMovementDirection();
         ApplyGravity();
@@ -230,16 +235,18 @@ public class PlayerScript : Character
         IsControllable = false;
         SetCurrentAction(CharacterAction.Boosting);
         _matchTarget = matchTarget;
+        _animator.applyRootMotion = true;
         
         _isBeingThrown = true;
         _verticalSpeed = 0.0f;
 
         /* This will just change the looking direction of the player to 
          * face where he needs to. */
-        _moveDirection = (transform.position - matchTarget.position).normalized;
+        _moveDirection = ( matchTarget.position - transform.position).normalized;
         _moveDirection.y = 0;
-        transform.rotation = Quaternion.Euler(_moveDirection);
+        transform.rotation = Quaternion.LookRotation(_moveDirection);
         _moveSpeed = 0.0f;
+        _animator.SetFloat(_hashes.speed, 0);
     }
 
     private IEnumerator ResetJump()
