@@ -51,8 +51,8 @@ Shader "Custom/Water" {
 				half acceptableHeightOffset = 0.02;
 				half targetPixelHeight = abs(sin(_Time * 10 - (i.pos.x - i.pos.y) * .5) * 2) * .1;
 
-				////	lerped
-				//return lerp(_Highlight, _Color, clamp( clamp( distance( pixelHeight, targetPixelHeight ), 0, 0.05) * 50, 0, 1) );
+				//	lerped
+				//return lerp(_Highlight, _Color, clamp( clamp( distance( pixelHeight, targetPixelHeight ), 0, .2) * 50, 0, 1) );
 
 				//	hard edges
 				return (pixelHeight > targetPixelHeight - acceptableHeightOffset && 

@@ -63,6 +63,7 @@
      <Compile Include="Assets\scripts\characters\player\PlayerJumpScript.cs" />
      <Compile Include="Assets\scripts\characters\player\PlayerScript.cs" />
      <Compile Include="Assets\scripts\extras\CavePainting.cs" />
+     <Compile Include="Assets\scripts\extras\LayerMasks.cs" />
      <Compile Include="Assets\scripts\extras\cursor\CursorManager.cs" />
      <Compile Include="Assets\scripts\objects\Block\BlockPushScript.cs" />
      <Compile Include="Assets\scripts\objects\Block\BlockScript.cs" />
