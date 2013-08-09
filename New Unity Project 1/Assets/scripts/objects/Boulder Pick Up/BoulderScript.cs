@@ -41,7 +41,7 @@ public class BoulderScript : GestureObject
                         RaycastHit rayHit;
                         ray = Camera.main.ScreenPointToRay( Input.mousePosition );
 
-                        if ( Physics.Raycast( ray, out rayHit, 50.0f, ~( 1 << 2 ) ) )
+                        if ( Physics.Raycast( ray, out rayHit, 50.0f, LayerMasks.IGNORE_RAY_GEST ) )
                         {
                             //  Work out the normal of the surface we just hit.
                             var normal = Quaternion.FromToRotation( Vector3.forward, rayHit.normal ).eulerAngles;
