@@ -9,7 +9,6 @@ public class InGamePause : MonoBehaviour
         get { return _instance; }
         private set
         {
-            Debug.Log("Instance has changed to " + value.ToString());
             _instance = value;
         }
     }
@@ -17,7 +16,7 @@ public class InGamePause : MonoBehaviour
     public GUISkin guiSkin;
 
     private Matrix4x4 _guiMatrix;
-    private Rect _guiRect = new Rect(0, 0, 250, 200);
+    private Rect _guiRect = new Rect(0, 0, 500, 300);
     private bool _paused;
 
     private void Awake()
@@ -58,18 +57,22 @@ public class InGamePause : MonoBehaviour
 
     private void OnGUI()
     {
-        if (!_paused) return;
-        if (guiSkin) GUI.skin = guiSkin;
+        if (!_paused) 
+            return;
+
+        if (guiSkin) 
+            GUI.skin = guiSkin;
+
         GUI.matrix = _guiMatrix;
 
-        GUILayout.BeginArea(_guiRect, guiSkin.customStyles[0]);
-        GUILayout.Label("Paused");
+        GUILayout.BeginArea(_guiRect);
+        GUILayout.Label("- Paused -", guiSkin.customStyles[1]);
         GUILayout.FlexibleSpace();
 
-        if (GUILayout.Button("Resume"))
+        if (GUILayout.Button("Resume", guiSkin.customStyles[0]))
             UpdateGameState();
 
-        if (GUILayout.Button("Back to Menu"))
+        if (GUILayout.Button("Back to Menu", guiSkin.customStyles[0]))
         {
             UpdateGameState();
             Application.LoadLevel(0);
