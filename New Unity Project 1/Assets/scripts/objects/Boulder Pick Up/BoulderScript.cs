@@ -1,187 +1,214 @@
+using System;
 using UnityEngine;
+using System.Collections;
 
 public class BoulderScript : GestureObject
 {
     private float _elapsed;
     private BoulderState _state;
+    private Ray ray;
+    private Vector3 hitPoint;
 
     /// <summary>
     /// The hash values for some of the required states to check for so we're not 
     /// constantly calling the static method. Also stops us having to route through code to 
     /// change it all over the place if we restructure the Animator.
     /// </summary>
-    private readonly int _idleHash = Animator.StringToHash("Idle.Standing Idle");
-    private readonly int _kneelIdleHash = Animator.StringToHash("Idle.Kneeling Idle");
-    private readonly int _motionHash = Animator.StringToHash("Boulder Pick Up.Motion");
+    private readonly int _idleHash = Animator.StringToHash( "Idle.Standing Idle" );
+    private readonly int _emptyHand = Animator.StringToHash( "Upper.Empty" );
+    private readonly int _kneelIdleHash = Animator.StringToHash( "Idle.Kneeling Idle" );
+    private readonly int _motionHash = Animator.StringToHash( "Boulder Pick Up.Motion" );
 
     protected override void Update()
     {
         //  If the companion is using another object currently and this isn't it, we
         //  shouldn't be able to use it.
-        if (_state == BoulderState.Grounded && 
-            _companionScript.IsIdle() == false) return;
+        if ( _state == BoulderState.Grounded &&
+             _companionScript.IsIdle() == false )
+            return;
 
         base.Update();
 
-        switch(_state)
+        switch ( _state )
         {
+            #region Carried
             case BoulderState.Carried:
+            {
+                if ( Input.GetMouseButtonDown( 0 ) )
                 {
-                    if (Input.GetMouseButtonDown(0))
+                    if ( _isMouseOvered == false )
                     {
-                        //  TODO: Maybe remove this and change the layer of the object to be ignored by the ray.
-                        if (_isMouseOvered == false)
+                        RaycastHit rayHit;
+                        ray = Camera.main.ScreenPointToRay( Input.mousePosition );
+
+                        if ( Physics.Raycast( ray, out rayHit, 50.0f, ~( 1 << 2 ) ) )
                         {
-                            RaycastHit rayHit;
-                            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                            //  Work out the normal of the surface we just hit.
+                            var normal = Quaternion.FromToRotation( Vector3.forward, rayHit.normal ).eulerAngles;
+                            var y = 360 - normal.x;
 
-                            if (Physics.Raycast(ray, out rayHit, 50.0f, ~(1 << 2)))
+                            if ( ( y > 60 && y <= 90 ) && rayHit.collider.tag != "Environment" )
                             {
-                                //  Work out the normal of the surface we just hit.
-                                var normal = Quaternion.FromToRotation(rayHit.normal, Vector3.forward).eulerAngles;
+                                //  It was a suitable angle so we'll tell the companion to drop it.
+                                aiTargetNode.transform.parent = null;
 
-                                /*  We're checking to see if the normal of the 
-                                 * surface hit isn't too sloped.   90 is up
-                                 * 
-                                 * We'll also check the tag for 'Environment' so we know not to allow it to be placed there
-                                 */
-                                if (normal.x >= 75f && rayHit.collider.tag != "Environment")
-                                {
-                                    //  It was a suitable angle so we'll tell the companion to drop it.
-                                    aiTargetNode.transform.parent = null;
-                                    aiTargetNode.transform.position = rayHit.point;
-                                    aiTargetNode.ActivateObject(this);
-                                    _state = BoulderState.Dropping;
+                                aiTargetNode.transform.position = rayHit.point;
+                                aiTargetNode.ActivateObject( this );
+                                _state = BoulderState.Dropping;
 
-                                    CursorManager.instance.ChangeCursor(CursorType.Normal);
-                                    CursorManager.instance.ChangeCursorStatus(CursorManager.CursorGestureStatus.Successful);
-                                }
+                                hitPoint = rayHit.point;
+
+                                _elapsed = 0.0f;
+
+                                CursorManager.instance.ChangeCursor( CursorType.Normal );
+                                CursorManager.instance.ChangeCursorStatus( CursorManager.CursorGestureStatus.Successful );
                             }
                         }
                     }
                 }
+            }
                 break;
+            #endregion
+            #region Dropping
             case BoulderState.Dropping:
+            {
+                //  Check if the companion is where he's 
+                //  supposed to be and drop the boulder if he's there.
+                if (_companionScript.waitingAtTarget )
                 {
-                    //  Check if the companion is where he's 
-                    //  supposed to be and drop the boulder if he's there.
-                    if (aiTargetNode.objectActive &&
-                        _companionScript.waitingAtTarget)
+                    var animationStateInfo = _companionScript.GetAnimator().GetCurrentAnimatorStateInfo( 0 );
+                    
+                    if ( animationStateInfo.nameHash == _idleHash )
                     {
-                        var animationStateInfo = _companionScript.GetAnimator().GetCurrentAnimatorStateInfo(0);
+                        StartCoroutine( StartCooldown() );
+                        _companionScript.SetCurrentAction( Character.CharacterAction.None );
 
-                        if (animationStateInfo.nameHash == _idleHash)
-                        {
-                            _elapsed = 0.0f;
-                            _state = BoulderState.Grounded;
-                            _companionScript.SetCurrentAction(Character.CharacterAction.None);
-
-                            _player.ActivateObject(this);
-                        }
-                        else
-                        {
-                            //  This timer is just here to give a bit of a delay in the animation to
-                            //  reach down to pick it up/put it down.
-                            if (_elapsed >= 0.38f)
-                            {
-                                RaycastHit hit;
-
-                                Physics.Raycast(aiTargetNode.transform.position, Vector3.down, out hit, 2.0f);
-
-                                transform.parent = null;
-                                transform.position = new Vector3(transform.position.x, hit.point.y, transform.position.z);
-                                transform.rotation = Quaternion.identity;
-
-                                aiTargetNode.transform.parent = transform;
-                                aiTargetNode.transform.localPosition = Vector3.zero;
-                                _companionScript.SetCurrentAction(Character.CharacterAction.None);
-                            }
-                            else
-                                _elapsed += Time.deltaTime;
-                        }
-                    }
-                }
-                break;
-            case BoulderState.Grounded:
-                {
-                    if (_successfulGesture)
-                    {
-                        if (aiTargetNode.objectActive == false)
-                        {
-                            //  If it's been deactivated, we no longer want to use this object.
-                            _successfulGesture = false;
-                        }
-                            
-                        if (_companionScript.waitingAtTarget)
-                        {
-                            var stateInfo = _companionScript.GetAnimator().GetCurrentAnimatorStateInfo(0);
-
-                            //  If they're in an idle position, we can make them start picking up the boulder.
-                            if (stateInfo.nameHash == _idleHash ||
-                                stateInfo.nameHash ==  _kneelIdleHash)
-                            {
-                                _state = BoulderState.BeingLifted;
-                                _companionScript.SetCurrentAction(Character.CharacterAction.Carrying);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if (_objectUsed && 
-                            _listening == false)
-                        {
-                            _objectUsed = false;
-                            _player.ActivateObject(this);
-                        }
-                    }
-                }
-                break; 
-            case BoulderState.BeingLifted:
-                {
-                    var stateInfo = _companionScript.GetAnimator().GetCurrentAnimatorStateInfo(0);
-
-                    if (stateInfo.nameHash == _motionHash)
-                    {
-                        /* Animation, picking up object is complete.
-                         * Begin retargetting to player */
-                        _successfulGesture = false;
-                        _elapsed = 0f;
-
-                        _state = BoulderState.Carried;
-
-                        CursorManager.instance.ChangeCursor(CursorType.PutDown);
-                        CursorManager.instance.ChangeCursorStatus(CursorManager.CursorGestureStatus.Capturing);
-                        
-                        _objectUsed = false;
-                        _player.ActivateObject(this);
+                        _player.ActivateObject( this );
                     }
                     else
                     {
                         //  This timer is just here to give a bit of a delay in the animation to
                         //  reach down to pick it up/put it down.
-                        if (_elapsed >= 0.25f)
+                        if ( _elapsed >= 0.38f )
                         {
-                            transform.parent = _companionScript.rightHand;
-                            transform.localPosition = new Vector3(0.038f, -0.18f, -0.035f);
-                            transform.rotation =
-                                Quaternion.Euler(new Vector3(Mathf.Deg2Rad*51.4f, Mathf.Deg2Rad*345.5f,
-                                                             Mathf.Deg2Rad*347.2f));
+                            transform.parent = null;
+                            transform.position = new Vector3( transform.position.x, hitPoint.y, transform.position.z );
+                            transform.rotation = Quaternion.identity;
+
+                            aiTargetNode.transform.parent = transform;
+                            aiTargetNode.transform.localPosition = Vector3.zero;
+                            _companionScript.SetCurrentAction( Character.CharacterAction.None );
                         }
                         else
+                        {
                             _elapsed += Time.deltaTime;
+                        }
                     }
                 }
+            }
+                break;
+            #endregion
+            #region Grounded
+            case BoulderState.Grounded:
+            {
+                if ( _successfulGesture )
+                {
+                    //  If it's been deactivated, we no longer want to use this object.
+                    if ( aiTargetNode.objectActive == false )
+                    {
+                        _successfulGesture = false;
+                    }
+
+                    if ( _companionScript.waitingAtTarget )
+                    {
+                        var stateInfo = _companionScript.GetAnimator().GetCurrentAnimatorStateInfo( 0 );
+
+                        //  If they're in an idle position, we can make them start picking up the boulder.
+                        if ( stateInfo.nameHash == _idleHash ||
+                             stateInfo.nameHash == _kneelIdleHash )
+                        {
+                            _state = BoulderState.BeingLifted;
+                            
+                        }
+                    }
+                }
+                else
+                {
+                    if ( _objectUsed &&
+                         _listening == false )
+                    {
+                        _objectUsed = false;
+                        _player.ActivateObject( this );
+                    }
+                }
+            }
+                break;
+            #endregion
+            case BoulderState.BeingLifted:
+            {
+                //  If he's still doing something with hands, we'll delay picking this up till it's finished
+                //  emoting
+                var handStateInfo = _companionScript.GetAnimator().GetCurrentAnimatorStateInfo( 1 );
+                if (handStateInfo.nameHash != _emptyHand)
+                {
+                    StartCoroutine(WaitForHandAnimation());
+                    return;
+                }
+                    
+                if ( _companionScript.waitingAtTarget && IsInIdleAnimation() )
+                    StartCoroutine( DelayPickUp() );
+            }
+                break;
+
+            case BoulderState.Waiting:
                 break;
         }
     }
+
+    bool IsInIdleAnimation()
+    {
+        var stateInfo = _companionScript.GetAnimator().GetCurrentAnimatorStateInfo( 0 );
+        return ( stateInfo.nameHash == _idleHash || stateInfo.nameHash == _kneelIdleHash );
+    }
+
+    IEnumerator WaitForHandAnimation()
+    {
+        _state = BoulderState.Waiting;
+
+        yield return new WaitForSeconds( .4f );
+        
+        //  Get back into the being lifted state to be checked again.
+        _state = BoulderState.BeingLifted;
+    }
+
+    IEnumerator DelayPickUp()
+    {
+        _companionScript.SetCurrentAction(Character.CharacterAction.Carrying);
+        _state = BoulderState.Waiting;
+        yield return new WaitForSeconds( .24f );
+
+        transform.parent = _companionScript.rightHand;
+        transform.localPosition = new Vector3(0.038f, -0.18f, -0.035f);
+        transform.localRotation = Quaternion.Euler( 57.3f, 5.2f, 0 ); 
+
+        _successfulGesture = false;
+        _state = BoulderState.Carried;
+
+        CursorManager.instance.ChangeCursor(CursorType.PutDown);
+        CursorManager.instance.ChangeCursorStatus(CursorManager.CursorGestureStatus.Capturing);
+
+        _objectUsed = false;
+        _player.ActivateObject(this);
+    }
+
     protected override void ProcessReceivedGesture()
     {
-        switch (_receivedGesture)
+        switch ( _receivedGesture )
         {
             case GestureType.Up:
                 SuccessfulGesture();
                 break;
-            default: 
+            default:
                 FailedGesture();
                 break;
         }
@@ -189,24 +216,25 @@ public class BoulderScript : GestureObject
         _receivedGesture = GestureType.None;
     }
 
-    protected override void FailedGesture()
+    void OnDrawGizmos()
     {
-        base.FailedGesture();
-
-        _companionScript.GetEmotions().InstantiateEmoticon(Emotions.Bad);
+        Gizmos.DrawLine(ray.origin, hitPoint);
     }
-    protected override void SuccessfulGesture()
-    {
-        base.SuccessfulGesture();
 
-        _companionScript.GetEmotions().InstantiateEmoticon(Emotions.Good);
+    private IEnumerator StartCooldown()
+    {
+        _state = BoulderState.Waiting;
+
+        yield return new WaitForSeconds( 1.2f );
+        _state = BoulderState.Grounded;
     }
 
     private enum BoulderState
     {
         Grounded,
-        Dropping, 
-        Carried, 
-        BeingLifted
+        Dropping,
+        Carried,
+        BeingLifted,
+        Waiting
     }
 }
