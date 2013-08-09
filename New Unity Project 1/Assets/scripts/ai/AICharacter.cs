@@ -23,6 +23,9 @@ public class AiCharacter : Character
                 _target.DeactivateObject( this );
 
             _target = value;
+
+            //  We should force it false and make it check.
+            waitingAtTarget = false;
 			CheckIfWaiting();
         }
     }
