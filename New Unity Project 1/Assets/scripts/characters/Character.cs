@@ -22,6 +22,8 @@ public class Character : MonoBehaviour
     {
         _animator = GetComponent< Animator >();
         _hashes = GetComponent< CharacterAnimationHashes >();
+
+        _animator.SetLayerWeight(1, 1);
     }
 
     protected virtual void Start()
@@ -120,5 +122,10 @@ public class Character : MonoBehaviour
     public bool IsIdle()
     {
         return currentAction == CharacterAction.None || currentAction == CharacterAction.Waiting;
+    }
+
+    public CharacterAnimationHashes GetAnimationHashes()
+    {
+        return _hashes;
     }
 }
