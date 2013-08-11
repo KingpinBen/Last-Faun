@@ -22,8 +22,9 @@ public class PressurePadScript : InteractiveObject
 
     protected override void Start()
     {
-        foreach ( var t in targetObjects )
+        for ( int i = 0; i < targetObjects.Length; i++ )
         {
+            var t = targetObjects[i];
             OnActivate += t.ToggleObject;
             OnDeactivate += t.ToggleObject;
         }
@@ -58,7 +59,7 @@ public class PressurePadScript : InteractiveObject
                     _oldTarget = aiTargetNode.GetAffectingCharacter().Target;
 
                     aiTargetNode.ActivateObject( this );
-                    CursorManager.instance.ChangeCursor( CursorType.Wait );
+                    CursorManager.instance.ChangeCursor( CursorType.Cancel );
                     CursorManager.instance.ChangeCursorStatus( CursorManager.CursorGestureStatus.Capturing );
                 }
             }
