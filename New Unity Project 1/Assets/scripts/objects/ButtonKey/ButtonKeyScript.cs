@@ -24,9 +24,9 @@ public class ButtonKeyScript : MonoBehaviour
         {
             case KeyState.Grounded:
                 {
-                    var pos = _transform.position;
+                    var pos = handle.transform.position;
                     pos.y += Mathf.Sin(Time.time * Time.timeScale * 2) * 0.002f;
-                    _transform.position = pos;
+                    handle.transform.position = pos;
                 }
                 break;
             case KeyState.PickedUp:
@@ -35,7 +35,7 @@ public class ButtonKeyScript : MonoBehaviour
                 break;
             case KeyState.OnButton:
                 {
-                    _transform.Rotate(0, 10 * Time.deltaTime, 0);
+                    handle.transform.Rotate(0, 10 * Time.deltaTime, 0);
                 }
                 break;
         }
