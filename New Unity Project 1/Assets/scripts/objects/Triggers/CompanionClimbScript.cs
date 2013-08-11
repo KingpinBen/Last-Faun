@@ -71,12 +71,6 @@ public class CompanionClimbScript : InteractiveObject
         }
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawSphere(transform.position, 0.25f);
-    }
-
     public OffMeshLink GetMeshLink()
     {
         return _meshLink;

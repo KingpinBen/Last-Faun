@@ -17,7 +17,7 @@ public class BoulderScript : GestureObject
     private readonly int _idleHash = Animator.StringToHash( "Idle.Standing Idle" );
     private readonly int _emptyHand = Animator.StringToHash( "Upper.Empty" );
     private readonly int _kneelIdleHash = Animator.StringToHash( "Idle.Kneeling Idle" );
-    private readonly int _motionHash = Animator.StringToHash( "Boulder Pick Up.Motion" );
+    //private readonly int _motionHash = Animator.StringToHash( "Boulder Pick Up.Motion" );
 
     protected override void Update()
     {
@@ -214,11 +214,6 @@ public class BoulderScript : GestureObject
         }
 
         _receivedGesture = GestureType.None;
-    }
-
-    void OnDrawGizmos()
-    {
-        Gizmos.DrawLine(ray.origin, hitPoint);
     }
 
     private IEnumerator StartCooldown()

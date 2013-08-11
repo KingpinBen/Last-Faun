@@ -81,11 +81,10 @@ public class AINode : InteractiveObject
 
     void OnDrawGizmos()
     {
-        Gizmos.color = Color.blue * 0.75f;
-        Gizmos.DrawCube(transform.position, Vector3.one * 0.2f);
+        if (!nextObject) 
+            return;
 
-        if (!nextObject) return;
-        Gizmos.color = Color.red;
+        Gizmos.color = Color.yellow;
         Gizmos.DrawLine(transform.position, nextObject.transform.position);
     }
 
