@@ -17,6 +17,11 @@ public class LogicBehaviourScript : InteractiveObject
         for ( var i = 0; i < requiredObjects.Length; i++ )
         {
             var t = requiredObjects[i];
+            if (!t)
+            {
+                Debug.LogWarning("WARNING: " + name + " has an empty required object! Either it's been removed or needs deleting from the array");
+                continue;
+            }
             t.targetObject.OnActivate += RequireResync;
             t.targetObject.OnDeactivate += RequireResync;
         }
