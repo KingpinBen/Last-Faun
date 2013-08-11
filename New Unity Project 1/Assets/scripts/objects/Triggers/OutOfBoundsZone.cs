@@ -4,13 +4,10 @@ using System.Collections;
 [RequireComponent( typeof ( BoxCollider ) )]
 public class OutOfBoundsZone : MonoBehaviour
 {
-
-
-
     public Transform targetRespawnPoint;
 
     private Texture2D _guiOverlayTexture;
-    public Color _guiColor;
+    private Color _guiColor;
     private PlayerScript _player;
     private float _startTime;
     private FadingState _activeState = FadingState.Hidden;

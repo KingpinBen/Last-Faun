@@ -10,7 +10,6 @@ public class MainMenuGui : MonoBehaviour
     private bool _transitioning;
     private int _levelToLoad = -1;
     private Matrix4x4 _guiMatrix;
-    private Rect _guiRect = new Rect(0,0,200, 200);
     private Color _tintColor = Color.black * 0f;
     private float _guiScale;
 
