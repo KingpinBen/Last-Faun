@@ -18,7 +18,7 @@
 	<DebugType>full</DebugType>
 	<Optimize>false</Optimize>
 	<OutputPath>Temp\bin\Debug\</OutputPath>
-	<DefineConstants>DEBUG;TRACE;UNITY_WEBPLAYER;WEBPLUG;ENABLE_MICROPHONE;ENABLE_IMAGEEFFECTS;ENABLE_WEBCAM;ENABLE_AUDIO_FMOD;ENABLE_NETWORK;ENABLE_MONO;ENABLE_PHYSICS;ENABLE_TERRAIN;ENABLE_CACHING;ENABLE_SUBSTANCE;ENABLE_GENERICS;ENABLE_CLOTH;ENABLE_MOVIES;ENABLE_AUDIO;ENABLE_WWW;ENABLE_SHADOWS;ENABLE_DUCK_TYPING;UNITY_4_0_0;UNITY_4_0;ENABLE_PROFILER;UNITY_EDITOR;UNITY_TEAM_LICENSE</DefineConstants>
+	<DefineConstants>DEBUG;TRACE;UNITY_STANDALONE;ENABLE_MICROPHONE;ENABLE_IMAGEEFFECTS;ENABLE_WEBCAM;ENABLE_AUDIO_FMOD;ENABLE_NETWORK;ENABLE_MONO;ENABLE_PHYSICS;ENABLE_TERRAIN;ENABLE_CACHING;ENABLE_SUBSTANCE;ENABLE_GENERICS;ENABLE_CLOTH;ENABLE_MOVIES;ENABLE_AUDIO;ENABLE_WWW;ENABLE_SHADOWS;ENABLE_DUCK_TYPING;UNITY_4_0_0;UNITY_4_0;UNITY_STANDALONE_WIN;DEVELOPMENT_BUILD;ENABLE_PROFILER;UNITY_EDITOR;UNITY_TEAM_LICENSE</DefineConstants>
 	<ErrorReport>prompt</ErrorReport>
 	<WarningLevel>4</WarningLevel>
 	<NoWarn>0169</NoWarn>
@@ -44,51 +44,21 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Editor\Image Effects\AntialiasingAsPostEffectEditor.js" />
-     <Compile Include="Assets\Editor\Image Effects\BloomAndLensFlaresEditor.js" />
-     <Compile Include="Assets\Editor\Image Effects\BloomEditor.js" />
-     <Compile Include="Assets\Editor\Image Effects\CameraMotionBlurEditor.js" />
-     <Compile Include="Assets\Editor\Image Effects\ColorCorrectionCurvesEditor.js" />
-     <Compile Include="Assets\Editor\Image Effects\ColorCorrectionLutEditor.js" />
-     <Compile Include="Assets\Editor\Image Effects\DepthOfField34Editor.js" />
-     <Compile Include="Assets\Editor\Image Effects\DepthOfFieldScatterEditor.js" />
-     <Compile Include="Assets\Editor\Image Effects\EdgeDetectEffectNormalsEditor.js" />
-     <Compile Include="Assets\Editor\Image Effects\NoiseAndGrainEditor.js" />
-     <Compile Include="Assets\Editor\Image Effects\SunShaftsEditor.js" />
-     <Compile Include="Assets\Editor\Image Effects\TiltShiftEditor.js" />
-     <Compile Include="Assets\Editor\Image Effects\TonemappingEditor.js" />
-     <Compile Include="Assets\Editor\Image Effects\VignettingEditor.js" />
-     <None Include="Assets\Prefabs\Standard Assets\Toon Shading\Sources\Shaders\Toony-Basic.shader" />
-     <None Include="Assets\Scripts\AstarPathfindingProject\Editor\EditorAssets\Materials\Navmesh2.shader" />
-     <None Include="Assets\Assets\Shaders\AlphaWrap.shader" />
-     <None Include="Assets\Scripts\AstarPathfindingProject\Readme_upgrading.txt" />
-     <None Include="Assets\Scripts\AstarPathfindingProject\Plugins\DotNetZip\License.txt" />
-     <None Include="Assets\Prefabs\Standard Assets\Particles\Sources\Shaders\Particle Alpha Blend (Queue +100).shader" />
-     <None Include="Assets\Scripts\AstarPathfindingProject\ExampleScenes\Materials\Projector Multiply.shader" />
-     <None Include="Assets\Scripts\AstarPathfindingProject\ExampleScenes\Materials\DiffuseAlwaysVisible.shader" />
-     <None Include="Assets\Scripts\AstarPathfindingProject\Editor\EditorAssets\Materials\Navmesh.shader" />
-     <None Include="Assets\Scripts\AstarPathfindingProject\Plugins\dependencies.txt" />
-     <None Include="Assets\Scripts\AstarPathfindingProject\ExampleScenes\_Example Scenes.txt" />
-     <None Include="Assets\Prefabs\Standard Assets\Toon Shading\Sources\Shaders\Toony-BasicOutline.shader" />
-     <None Include="Assets\Assets\Shaders\ToonTransparencyShader.shader" />
-     <None Include="Assets\Prefabs\Standard Assets\Water (Basic)\Sources\Shaders\FX-Water Simple.shader" />
-     <None Include="Assets\Prefabs\Standard Assets\Toon Shading\Sources\Shaders\Toony-LightedOutline.shader" />
-     <None Include="Assets\Prefabs\Standard Assets\Toon Shading\Sources\Shaders\Toony-Lighted.shader" />
-     <None Include="Assets\Scripts\AstarPathfindingProject\ExampleScenes\Materials\Projector Light.shader" />
-     <None Include="Assets\Scripts\AstarPathfindingProject\Readme.txt" />
-     <None Include="Assets\Scripts\AstarPathfindingProject\link.xml" />
-     <None Include="Assets\Scripts\AstarPathfindingProject\Plugins\JsonFx\License.txt" />
-     <None Include="Assets\Assets\Shaders\UnlitFader.shader" />
-     <None Include="Assets\Scripts\AstarPathfindingProject\Plugins\JsonFx\Readme.txt" />
- <Reference Include="Assembly-UnityScript">
- <HintPath>Library\ScriptAssemblies\Assembly-UnityScript.dll</HintPath>
- </Reference>
- <Reference Include="Ionic.Zip.Reduced">
- <HintPath>Assets\Scripts\AstarPathfindingProject\Plugins\DotNetZip\Ionic.Zip.Reduced.dll</HintPath>
- </Reference>
- <Reference Include="JsonFx.Json">
- <HintPath>Assets\Scripts\AstarPathfindingProject\Plugins\JsonFx\JsonFx.Json.dll</HintPath>
- </Reference>
+     <Compile Include="Assets\Editor\NewBehaviourScript.js" />
+     <None Include="Assets\materials\shaders\Toony-Basic.shader" />
+     <None Include="Assets\materials\shaders\AlphaWrap.shader" />
+     <None Include="Assets\materials\shaders\Water.shader" />
+     <None Include="Assets\materials\shaders\Projector Multiply.shader" />
+     <None Include="Assets\materials\shaders\Toony-Lighted-NoCull.shader" />
+     <None Include="Assets\materials\shaders\Toony-BasicOutline.shader" />
+     <None Include="Assets\materials\shaders\Shadow Projector.shader" />
+     <None Include="Assets\materials\shaders\Decal.shader" />
+     <None Include="Assets\materials\shaders\Toony-LightedOutline.shader" />
+     <None Include="Assets\materials\shaders\Toony-Lighted.shader" />
+     <None Include="Assets\materials\shaders\WaterRipple.shader" />
+     <None Include="Assets\materials\shaders\Projector Light.shader" />
+     <None Include="Assets\materials\shaders\UnlitFader.shader" />
+     <None Include="Assets\materials\shaders\Toony-Terrain.shader" />
  <Reference Include="UnityEditor.Graphs">
  <HintPath>C:\Program Files (x86)\Unity\Editor\Data\Managed\UnityEditor.Graphs.dll</HintPath>
  </Reference>

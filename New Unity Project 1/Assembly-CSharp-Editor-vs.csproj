@@ -45,12 +45,28 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Editor\AutoSave.cs" />
+     <Compile Include="Assets\Editor\BlockPushEditor.cs" />
+     <Compile Include="Assets\Editor\BlockTrackTargetEditor.cs" />
+     <Compile Include="Assets\Editor\BoostPlatformEditor.cs" />
+     <Compile Include="Assets\Editor\BoulderEditor.cs" />
      <Compile Include="Assets\Editor\ButtonEditor.cs" />
+     <Compile Include="Assets\Editor\ButtonKeyEditor.cs" />
      <Compile Include="Assets\Editor\CameraLineEditor.cs" />
      <Compile Include="Assets\Editor\CameraPointEditor.cs" />
      <Compile Include="Assets\Editor\CameraQuadEditor.cs" />
+     <Compile Include="Assets\Editor\ChangeLevelEditor.cs" />
+     <Compile Include="Assets\Editor\CompanionClimbEditor.cs" />
      <Compile Include="Assets\Editor\DoorEditorScript.cs" />
+     <Compile Include="Assets\Editor\EmoticonDisplayOverride.cs" />
+     <Compile Include="Assets\Editor\HashesEditor.cs" />
+     <Compile Include="Assets\Editor\LeverEditor.cs" />
+     <Compile Include="Assets\Editor\LogicBehaviourEditor.cs" />
      <Compile Include="Assets\Editor\OodObjectMenu.cs" />
+     <Compile Include="Assets\Editor\OutOfBoundsEditor.cs" />
+     <Compile Include="Assets\Editor\PauseEditorOverride.cs" />
+     <Compile Include="Assets\Editor\PressurePadEditor.cs" />
+     <Compile Include="Assets\Editor\TimedLogicEditor.cs" />
+     <Compile Include="Assets\Editor\TriggerObjectEditor.cs" />
      <None Include="Assets\materials\shaders\Toony-Basic.shader" />
      <None Include="Assets\materials\shaders\AlphaWrap.shader" />
      <None Include="Assets\materials\shaders\Water.shader" />
